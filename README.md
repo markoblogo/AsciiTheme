@@ -225,7 +225,7 @@ Import base CSS once in `app/layout.tsx` or `pages/_app.tsx`:
 import "@markoblogo/ascii-theme/base.css";
 ```
 
-Run init in a client component:
+Run init in a client component (initAsciiTheme must run client-side):
 
 ```tsx
 "use client";
@@ -259,6 +259,40 @@ CDN (pinned):
     addThemeToggle: true,
     addStyleToggle: false,
     mountSelector: ".header-controls",
+  });
+</script>
+```
+
+## Minimal landing example (base preset)
+
+Base preset is ASCII-only by design, so there is no style toggle in this mode. Keep the light/dark toggle enabled.
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/base.css" />
+<script src="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/ascii-theme.umd.js"></script>
+
+<header class="a-container a-section a-cluster a-between">
+  <strong>ASCII Landing</strong>
+  <nav class="a-cluster"><a href="#">Docs</a><a href="#">GitHub</a></nav>
+  <div id="theme-controls"></div>
+</header>
+<main class="a-container a-stack a-gap-3">
+  <section class="a-section a-split a-gap-3">
+    <div class="a-stack a-gap-2">
+      <h1 class="a-balance">Ship a terminal-style landing in minutes.</h1>
+      <p class="a-prose a-muted">Use base.css + utilities only, no extra framework CSS.</p>
+      <div class="a-cluster a-gap-2"><a class="a-btn--primary" href="#">Start</a><a class="a-btn--ghost" href="#">Read docs</a></div>
+    </div>
+    <aside class="a-card">Sidebar panel</aside>
+  </section>
+</main>
+<script>
+  AsciiTheme.initAsciiTheme({
+    base: true,
+    managedMode: true,
+    addThemeToggle: true,
+    addStyleToggle: false,
+    mountSelector: "#theme-controls"
   });
 </script>
 ```
