@@ -185,6 +185,16 @@ For cross-project consistency, follow the standard integration smoke-check:
 - Apply the 4-state visual checklist from `docs/integration-smoke-check.md` (`default/ascii` x `light/dark`).
 - Use `integrateTheme: "respect"` for sites that already own light/dark; use `integrateTheme: "managed"` only for sites without host theme controls.
 
+### No host-theme + hardcoded colors playbook
+
+Use this order to avoid contrast regressions on utility-heavy sites:
+
+1. Start with `integrateTheme: "auto"` and `addThemeToggle: true` + `addStyleToggle: true`.
+2. If no host theme is detected, switch to managed mode (`integrateTheme: "managed"`, `defaultMode: "dark"`).
+3. Run the 4-state smoke check (`default/light`, `default/dark`, `ascii/light`, `ascii/dark`).
+4. If contrast is still weak in managed mode, rely on built-in readability hardening for common `text-*` / `bg-*` / `border-*` utility classes before adding site-local CSS.
+5. Add site-local bridge CSS only for truly project-specific tokens that cannot be generalized.
+
 ## Markup conventions
 
 - Style axis is applied to root by the plugin:
