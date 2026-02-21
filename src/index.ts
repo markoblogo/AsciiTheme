@@ -1,6 +1,6 @@
 import "./style.css";
 
-import { getPreferredMode, getRoot } from "./dom";
+import { getPreferredMode, getRoot, getSystemMode } from "./dom";
 import { readState, writeState } from "./storage";
 import { renderAsciiStickers as renderStickers, restoreAsciiStickers } from "./stickers";
 
@@ -59,7 +59,6 @@ const DEFAULTS: ResolvedAsciiThemeOptions = {
 };
 
 let config: ResolvedAsciiThemeOptions = { ...DEFAULTS };
-const root = getRoot();
 let themeToggleButton: HTMLButtonElement | null = null;
 let styleToggleButton: HTMLButtonElement | null = null;
 let injectedContainer: HTMLElement | null = null;
@@ -73,6 +72,7 @@ function normalizeMode(value: unknown): AsciiMode {
 }
 
 function readHostMode(themeAttr: string): AsciiMode {
+  const root = getRoot();
   const attrMode = root.getAttribute(themeAttr);
   if (attrMode === "dark" || attrMode === "light") {
     return attrMode;
@@ -94,6 +94,7 @@ function readHostMode(themeAttr: string): AsciiMode {
 }
 
 function builtInThemeDetection(themeAttr: string): ThemeDetection {
+  const root = getRoot();
   const attrMode = root.getAttribute(themeAttr);
   if (attrMode === "dark" || attrMode === "light") {
     return { hasHostTheme: true, mode: attrMode };
@@ -142,6 +143,7 @@ function resolveThemeIntegration(options: AsciiThemeOptions): {
     };
   }
 
+  const root = getRoot();
   const detected = options.detectTheme
     ? options.detectTheme(root)
     : builtInThemeDetection(options.themeAttr ?? DEFAULTS.themeAttr);
@@ -163,6 +165,7 @@ function resolveThemeIntegration(options: AsciiThemeOptions): {
 }
 
 function syncAsciiModeIfManaged(mode?: AsciiMode): void {
+  const root = getRoot();
   if (!config.managedMode) {
     root.removeAttribute("data-ascii-mode");
     return;
@@ -183,6 +186,7 @@ function persistState(style: AsciiStyle, mode?: AsciiMode): void {
 
 function getAsciiMode(): AsciiMode {
   if (config.managedMode) {
+    const root = getRoot();
     return normalizeMode(root.getAttribute("data-ascii-mode"));
   }
   return readHostMode(config.themeAttr);
@@ -282,6 +286,7 @@ function injectTogglesIfNeeded(): void {
 }
 
 function applyStyle(style: AsciiStyle): AsciiStyle {
+  const root = getRoot();
   const next = config.base ? "ascii" : normalizeStyle(style);
   root.setAttribute("data-style", next);
   if (next === "ascii") {
@@ -300,6 +305,10 @@ function applyStyle(style: AsciiStyle): AsciiStyle {
 
 export function initAsciiTheme(options: AsciiThemeOptions = {}): AsciiStyle {
   const wantsBase = options.base ?? DEFAULTS.base;
+  if (typeof window === "undefined" || typeof document === "undefined") {
+    return wantsBase ? "ascii" : normalizeStyle(options.defaultStyle ?? DEFAULTS.defaultStyle);
+  }
+
   const themeOptions: AsciiThemeOptions = {
     ...options,
     managedMode: wantsBase
@@ -321,7 +330,6 @@ export function initAsciiTheme(options: AsciiThemeOptions = {}): AsciiStyle {
     defaultMode: integration.defaultMode,
   };
 
-  // Keep behavior predictable even if only one toggle is injected.
   if (config.mountPlacement === "afterThemeToggle" && !config.addThemeToggle) {
     config.mountPlacement = "append";
   }
@@ -332,8 +340,22 @@ export function initAsciiTheme(options: AsciiThemeOptions = {}): AsciiStyle {
     : normalizeStyle(saved.style ?? config.defaultStyle);
 
   if (config.managedMode) {
-    syncAsciiModeIfManaged(saved.mode ?? config.defaultMode);
+    const resolvedMode = saved.mode
+      ? normalizeMode(saved.mode)
+      : options.defaultMode
+        ? normalizeMode(options.defaultMode)
+        : getSystemMode();
+    syncAsciiModeIfManaged(resolvedMode);
+
+    if (!saved.mode) {
+      writeState(config.storageKey, {
+        ...saved,
+        style: initialStyle,
+        mode: resolvedMode,
+      });
+    }
   } else {
+    const root = getRoot();
     root.removeAttribute("data-ascii-mode");
     if (config.themeAttr !== "data-theme") {
       const hostTheme = root.getAttribute(config.themeAttr);
@@ -365,14 +387,16 @@ export function getAsciiStyle(): AsciiStyle {
   if (config.base) {
     return "ascii";
   }
+  const root = getRoot();
   return normalizeStyle(root.getAttribute("data-style"));
 }
 
 export function setAsciiMode(mode: AsciiMode): AsciiMode {
   if (!config.managedMode) {
-    return normalizeMode(root.getAttribute(config.themeAttr));
+    return normalizeMode(readHostMode(config.themeAttr));
   }
 
+  const root = getRoot();
   const next = normalizeMode(mode);
   root.setAttribute("data-ascii-mode", next);
   persistState(getAsciiStyle(), next);
@@ -382,9 +406,10 @@ export function setAsciiMode(mode: AsciiMode): AsciiMode {
 
 export function toggleAsciiMode(): AsciiMode {
   if (!config.managedMode) {
-    return normalizeMode(root.getAttribute(config.themeAttr));
+    return normalizeMode(readHostMode(config.themeAttr));
   }
 
+  const root = getRoot();
   const current = normalizeMode(root.getAttribute("data-ascii-mode"));
   return setAsciiMode(current === "dark" ? "light" : "dark");
 }
