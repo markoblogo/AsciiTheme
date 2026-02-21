@@ -30,6 +30,7 @@ export type AsciiThemeOptions = {
     moon?: string;
   };
   className?: string;
+  base?: boolean;
 };
 
 type ResolvedAsciiThemeOptions = Omit<
@@ -54,6 +55,7 @@ const DEFAULTS: ResolvedAsciiThemeOptions = {
     moon: "☾",
   },
   className: "",
+  base: false,
 };
 
 let config: ResolvedAsciiThemeOptions = { ...DEFAULTS };
@@ -228,11 +230,7 @@ function injectTogglesIfNeeded(): void {
     Boolean(mountSelector) &&
     (config.addThemeToggle || config.addStyleToggle);
 
-  if (!shouldInject) {
-    return;
-  }
-
-  if (!mountSelector) {
+  if (!shouldInject || !mountSelector) {
     return;
   }
 
@@ -260,7 +258,7 @@ function injectTogglesIfNeeded(): void {
     themeToggleButton = null;
   }
 
-  if (config.addStyleToggle) {
+  if (config.addStyleToggle && !config.base) {
     styleToggleButton = createToggleButton("style", extraClass);
     styleToggleButton.addEventListener("click", () => {
       toggleAsciiStyle();
@@ -284,7 +282,7 @@ function injectTogglesIfNeeded(): void {
 }
 
 function applyStyle(style: AsciiStyle): AsciiStyle {
-  const next = normalizeStyle(style);
+  const next = config.base ? "ascii" : normalizeStyle(style);
   root.setAttribute("data-style", next);
   if (next === "ascii") {
     renderStickers(document);
@@ -301,14 +299,25 @@ function applyStyle(style: AsciiStyle): AsciiStyle {
 }
 
 export function initAsciiTheme(options: AsciiThemeOptions = {}): AsciiStyle {
-  const integration = resolveThemeIntegration(options);
+  const wantsBase = options.base ?? DEFAULTS.base;
+  const themeOptions: AsciiThemeOptions = {
+    ...options,
+    managedMode: wantsBase
+      ? (options.managedMode ?? true)
+      : options.managedMode,
+  };
+  const integration = resolveThemeIntegration(themeOptions);
 
   config = {
     ...DEFAULTS,
-    ...options,
+    ...themeOptions,
+    base: wantsBase,
     managedMode: integration.managedMode,
     addThemeToggle: integration.addThemeToggle,
-    defaultStyle: normalizeStyle(options.defaultStyle ?? DEFAULTS.defaultStyle),
+    addStyleToggle: wantsBase ? false : (themeOptions.addStyleToggle ?? DEFAULTS.addStyleToggle),
+    defaultStyle: wantsBase
+      ? "ascii"
+      : normalizeStyle(themeOptions.defaultStyle ?? DEFAULTS.defaultStyle),
     defaultMode: integration.defaultMode,
   };
 
@@ -318,7 +327,9 @@ export function initAsciiTheme(options: AsciiThemeOptions = {}): AsciiStyle {
   }
 
   const saved = readState(config.storageKey);
-  const initialStyle = normalizeStyle(saved.style ?? config.defaultStyle);
+  const initialStyle = config.base
+    ? "ascii"
+    : normalizeStyle(saved.style ?? config.defaultStyle);
 
   if (config.managedMode) {
     syncAsciiModeIfManaged(saved.mode ?? config.defaultMode);
@@ -343,11 +354,17 @@ export function setAsciiStyle(style: AsciiStyle): AsciiStyle {
 }
 
 export function toggleAsciiStyle(): AsciiStyle {
+  if (config.base) {
+    return applyStyle("ascii");
+  }
   const current = getAsciiStyle();
   return applyStyle(current === "ascii" ? "default" : "ascii");
 }
 
 export function getAsciiStyle(): AsciiStyle {
+  if (config.base) {
+    return "ascii";
+  }
   return normalizeStyle(root.getAttribute("data-style"));
 }
 

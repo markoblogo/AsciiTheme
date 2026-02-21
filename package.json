@@ -15,7 +15,8 @@
       "import": "./dist/ascii-theme.es.js",
       "require": "./dist/ascii-theme.umd.js"
     },
-    "./style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./base.css": "./dist/base.css"
   },
   "files": [
     "dist",
@@ -23,7 +24,8 @@
     "LICENSE"
   ],
   "sideEffects": [
-    "dist/style.css"
+    "dist/style.css",
+    "dist/base.css"
   ],
   "scripts": {
     "dev": "npm run demo:dev",
@@ -31,7 +33,7 @@
     "demo:build": "vite build --mode demo",
     "demo:preview": "vite preview --mode demo",
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
-    "build": "npm run build:types && vite build",
+    "build": "npm run build:types && vite build && cp src/base.css dist/base.css",
     "preview": "npm run demo:preview"
   },
   "keywords": [

@@ -24,6 +24,7 @@ export type AsciiThemeOptions = {
         moon?: string;
     };
     className?: string;
+    base?: boolean;
 };
 export declare function initAsciiTheme(options?: AsciiThemeOptions): AsciiStyle;
 export declare function setAsciiStyle(style: AsciiStyle): AsciiStyle;
