@@ -92,6 +92,12 @@ export function initAsciiTheme(options: AsciiThemeOptions = {}): AsciiStyle {
     syncAsciiModeIfManaged(saved.mode ?? config.defaultMode);
   } else {
     root.removeAttribute("data-ascii-mode");
+    if (config.themeAttr !== "data-theme") {
+      const hostTheme = root.getAttribute(config.themeAttr);
+      if (hostTheme === "light" || hostTheme === "dark") {
+        root.setAttribute("data-theme", hostTheme);
+      }
+    }
   }
 
   return applyStyle(initialStyle);

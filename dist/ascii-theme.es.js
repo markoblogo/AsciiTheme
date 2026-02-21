@@ -1,14 +1,14 @@
-const h = document.documentElement;
+const k = document.documentElement;
 function p() {
-  return h;
+  return k;
 }
-function m(t, e = document) {
+function A(t, e = document) {
   return Array.from(e.querySelectorAll(t));
 }
 function T() {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
-function A(t) {
+function y(t) {
   try {
     const e = localStorage.getItem(t);
     if (!e)
@@ -16,10 +16,10 @@ function A(t) {
     const r = JSON.parse(e);
     if (!r || typeof r != "object")
       return {};
-    const i = r;
+    const a = r;
     return {
-      style: i.style === "ascii" ? "ascii" : i.style === "default" ? "default" : void 0,
-      mode: i.mode === "dark" ? "dark" : i.mode === "light" ? "light" : void 0
+      style: a.style === "ascii" ? "ascii" : a.style === "default" ? "default" : void 0,
+      mode: a.mode === "dark" ? "dark" : a.mode === "light" ? "light" : void 0
     };
   } catch {
     return {};
@@ -31,114 +31,120 @@ function v(t, e) {
   } catch {
   }
 }
-const u = "asciiOriginalHtml", l = "data-ascii-sticker-rendered", $ = "pre.ascii-sticker";
+const l = "asciiOriginalHtml", f = "data-ascii-sticker-rendered", $ = "pre.ascii-sticker";
 function g(t, e = 2) {
-  const r = t.replace(/\s+/g, " ").trim(), i = `${" ".repeat(e)}${r}${" ".repeat(e)}`, d = `┌${"─".repeat(i.length)}┐`, k = `│${i}│`, b = `└${"─".repeat(i.length)}┘`;
-  return `${d}
-${k}
+  const r = t.replace(/\s+/g, " ").trim(), a = `${" ".repeat(e)}${r}${" ".repeat(e)}`, u = `┌${"─".repeat(a.length)}┐`, c = `│${a}│`, b = `└${"─".repeat(a.length)}┘`;
+  return `${u}
+${c}
 ${b}`;
 }
 function E(t) {
-  t.dataset[u] || (t.dataset[u] = t.innerHTML);
+  t.dataset[l] || (t.dataset[l] = t.innerHTML);
   const e = (t.getAttribute("data-ascii-sticker") || "").trim();
   if (!e)
     return;
   const r = t.querySelector($);
-  if (t.getAttribute(l) === "1" && r) {
+  if (t.getAttribute(f) === "1" && r) {
     r.textContent = g(e);
     return;
   }
   t.innerHTML = "";
-  const i = document.createElement("pre");
-  i.className = "ascii-sticker", i.textContent = g(e), t.matches("button, a, [role='button']") && t.setAttribute("aria-label", e), t.appendChild(i), t.setAttribute(l, "1");
+  const a = document.createElement("pre");
+  a.className = "ascii-sticker", a.textContent = g(e), t.matches("button, a, [role='button']") && t.setAttribute("aria-label", e), t.appendChild(a), t.setAttribute(f, "1");
 }
 function R(t) {
-  const e = t.dataset[u];
-  e !== void 0 && (t.innerHTML = e, t.removeAttribute(l));
+  const e = t.dataset[l];
+  e !== void 0 && (t.innerHTML = e, t.removeAttribute(f));
 }
-function y(t = document) {
-  const e = m("[data-ascii-sticker]", t);
+function h(t = document) {
+  const e = A("[data-ascii-sticker]", t);
   for (const r of e)
     E(r);
 }
 function x(t = document) {
-  const e = m("[data-ascii-sticker]", t);
+  const e = A("[data-ascii-sticker]", t);
   for (const r of e)
     R(r);
 }
-const c = {
+const s = {
   storageKey: "ascii_theme_v1",
   defaultStyle: "default",
   managedMode: !1,
   defaultMode: "light",
   themeAttr: "data-theme"
 };
-let a = { ...c };
+let i = { ...s };
 const n = p();
-function s(t) {
+function d(t) {
   return t === "ascii" ? "ascii" : "default";
 }
 function o(t) {
   return t === "dark" ? "dark" : "light";
 }
 function L(t) {
-  if (!a.managedMode) {
+  if (!i.managedMode) {
     n.removeAttribute("data-ascii-mode");
     return;
   }
-  const e = o(t ?? a.defaultMode);
+  const e = o(t ?? i.defaultMode);
   n.setAttribute("data-ascii-mode", e);
 }
 function M(t, e) {
-  const r = A(a.storageKey);
-  v(a.storageKey, {
+  const r = y(i.storageKey);
+  v(i.storageKey, {
     ...r,
     style: t,
-    mode: a.managedMode ? e : void 0
+    mode: i.managedMode ? e : void 0
   });
 }
-function f(t) {
-  const e = s(t);
-  n.setAttribute("data-style", e), e === "ascii" ? y(document) : x(document);
-  const r = a.managedMode ? o(n.getAttribute("data-ascii-mode")) : void 0;
+function m(t) {
+  const e = d(t);
+  n.setAttribute("data-style", e), e === "ascii" ? h(document) : x(document);
+  const r = i.managedMode ? o(n.getAttribute("data-ascii-mode")) : void 0;
   return M(e, r), e;
 }
 function _(t = {}) {
-  const e = t.managedMode ?? c.managedMode, r = t.defaultMode ? o(t.defaultMode) : e ? T() : c.defaultMode;
-  a = {
-    ...c,
+  const e = t.managedMode ?? s.managedMode, r = t.defaultMode ? o(t.defaultMode) : e ? T() : s.defaultMode;
+  i = {
+    ...s,
     ...t,
     managedMode: e,
-    defaultStyle: s(t.defaultStyle ?? c.defaultStyle),
+    defaultStyle: d(t.defaultStyle ?? s.defaultStyle),
     defaultMode: r
   };
-  const i = A(a.storageKey), d = s(i.style ?? a.defaultStyle);
-  return a.managedMode ? L(i.mode ?? a.defaultMode) : n.removeAttribute("data-ascii-mode"), f(d);
+  const a = y(i.storageKey), u = d(a.style ?? i.defaultStyle);
+  if (i.managedMode)
+    L(a.mode ?? i.defaultMode);
+  else if (n.removeAttribute("data-ascii-mode"), i.themeAttr !== "data-theme") {
+    const c = n.getAttribute(i.themeAttr);
+    (c === "light" || c === "dark") && n.setAttribute("data-theme", c);
+  }
+  return m(u);
 }
 function H(t) {
-  return f(t);
+  return m(t);
 }
 function I() {
   const t = S();
-  return f(t === "ascii" ? "default" : "ascii");
+  return m(t === "ascii" ? "default" : "ascii");
 }
 function S() {
-  return s(n.getAttribute("data-style"));
+  return d(n.getAttribute("data-style"));
 }
 function O(t) {
-  if (!a.managedMode)
-    return o(n.getAttribute(a.themeAttr));
+  if (!i.managedMode)
+    return o(n.getAttribute(i.themeAttr));
   const e = o(t);
   return n.setAttribute("data-ascii-mode", e), M(S(), e), e;
 }
 function N() {
-  if (!a.managedMode)
-    return o(n.getAttribute(a.themeAttr));
+  if (!i.managedMode)
+    return o(n.getAttribute(i.themeAttr));
   const t = o(n.getAttribute("data-ascii-mode"));
   return O(t === "dark" ? "light" : "dark");
 }
 function w(t = document) {
-  y(t);
+  h(t);
 }
 export {
   S as getAsciiStyle,
