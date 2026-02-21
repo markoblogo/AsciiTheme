@@ -1,0 +1,43 @@
+{
+  "name": "@markoblogo/ascii-theme",
+  "version": "0.1.0",
+  "description": "Framework-agnostic ASCII theme layer with style/mode toggles and box-drawing stickers.",
+  "type": "module",
+  "main": "./dist/ascii-theme.umd.js",
+  "module": "./dist/ascii-theme.es.js",
+  "types": "./dist/index.d.ts",
+  "style": "./dist/style.css",
+  "unpkg": "./dist/ascii-theme.umd.js",
+  "jsdelivr": "./dist/ascii-theme.umd.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/ascii-theme.es.js",
+      "require": "./dist/ascii-theme.umd.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite --mode demo",
+    "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
+    "build": "npm run build:types && vite build",
+    "preview": "vite build --mode demo && vite preview --mode demo"
+  },
+  "keywords": [
+    "ascii",
+    "theme",
+    "plugin",
+    "css",
+    "terminal"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  }
+}

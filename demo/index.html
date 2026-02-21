@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-style="default">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AsciiTheme Demo</title>
+    <link rel="stylesheet" href="/demo.css" />
+    <link rel="stylesheet" href="../src/style.css" />
+  </head>
+  <body>
+    <header class="demo-topbar" data-ascii-role="nav">
+      <strong>AsciiTheme demo</strong>
+      <div class="demo-actions">
+        <button id="style-toggle" type="button" data-ascii-role="cta">ASCII</button>
+        <button id="mode-toggle" type="button" data-ascii-role="cta-secondary">Mode: light</button>
+      </div>
+    </header>
+
+    <main class="demo-main">
+      <section class="demo-grid">
+        <article class="demo-card" data-ascii-role="card">
+          <h3>Style toggle</h3>
+          <p>Switches <code>data-style</code> between <code>default</code> and <code>ascii</code>.</p>
+          <a href="#" data-ascii-role="cta">Primary action</a>
+        </article>
+
+        <article class="demo-card" data-ascii-role="card">
+          <h3>Managed mode</h3>
+          <p>This demo runs with <code>managedMode: true</code>, so the plugin controls <code>data-ascii-mode</code>.</p>
+          <a href="#" data-ascii-role="cta-secondary">Secondary action</a>
+        </article>
+
+        <article class="demo-card" data-ascii-role="card">
+          <h3>Stickers</h3>
+          <div data-ascii-sticker="NEW RELEASE"></div>
+          <div data-ascii-sticker="NOW: PR Guard + LLMO Pack"></div>
+        </article>
+      </section>
+
+      <section class="demo-snippet" data-ascii-role="card">
+        <h3>CDN integration snippet</h3>
+        <pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme/dist/style.css" /&gt;
+&lt;script src="https://unpkg.com/@markoblogo/ascii-theme/dist/ascii-theme.umd.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  AsciiTheme.initAsciiTheme({ managedMode: false });
+&lt;/script&gt;</code></pre>
+      </section>
+    </main>
+
+    <footer class="demo-footer ascii-footnote">
+      This landing uses an experimental ASCII theme mode (toggle in the header)
+    </footer>
+
+    <script type="module" src="/demo.js"></script>
+  </body>
+</html>
