@@ -179,7 +179,7 @@ function persistState(style: AsciiStyle, mode?: AsciiMode): void {
   const current = readState(config.storageKey);
   writeState(config.storageKey, {
     ...current,
-    style,
+    style: config.base ? style : undefined,
     mode: config.managedMode ? mode : undefined,
   });
 }
@@ -337,7 +337,7 @@ export function initAsciiTheme(options: AsciiThemeOptions = {}): AsciiStyle {
   const saved = readState(config.storageKey);
   const initialStyle = config.base
     ? "ascii"
-    : normalizeStyle(saved.style ?? config.defaultStyle);
+    : normalizeStyle(config.defaultStyle);
 
   if (config.managedMode) {
     const resolvedMode = saved.mode
@@ -347,16 +347,22 @@ export function initAsciiTheme(options: AsciiThemeOptions = {}): AsciiStyle {
         : getSystemMode();
     syncAsciiModeIfManaged(resolvedMode);
 
-    if (!saved.mode) {
+    if (!saved.mode || saved.style) {
       writeState(config.storageKey, {
         ...saved,
-        style: initialStyle,
+        style: config.base ? initialStyle : undefined,
         mode: resolvedMode,
       });
     }
   } else {
     const root = getRoot();
     root.removeAttribute("data-ascii-mode");
+    if (saved.style) {
+      writeState(config.storageKey, {
+        ...saved,
+        style: undefined,
+      });
+    }
     if (config.themeAttr !== "data-theme") {
       const hostTheme = root.getAttribute(config.themeAttr);
       if (hostTheme === "light" || hostTheme === "dark") {

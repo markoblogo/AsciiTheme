@@ -144,6 +144,7 @@ initAsciiTheme({
 Notes:
 - Toggles are injected only when `mountSelector` is provided and toggle flags are enabled.
 - Theme toggle switches `dark`/`light`; style toggle text switches `ASCII`/`Default`.
+- ASCII style is manual-only by default on overlay integrations: new visits start in `default`, and ASCII activates only after explicit user toggle.
 - When `base: true`, style toggle is automatically disabled and `data-style` is forced to `ascii`.
 
 ## Smart integration (auto detect host theme)
