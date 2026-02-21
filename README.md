@@ -221,6 +221,7 @@ Use this order to avoid contrast regressions on utility-heavy sites:
 ## Notes / limitations
 
 - Contrast defaults in ASCII mode are tuned for utility-heavy sites (Tailwind-like `text-*`/`bg-*` classes), so text and controls remain readable in both light and dark.
+- Card/panel classes (`.card`, `.card-gloss`, and common `card-*`/`panel-*` variants) are normalized in managed dark and ASCII modes to prevent white-card regressions on dark backgrounds.
 - If your host theme uses a root `.dark` / `.light` class (instead of `data-theme`), ASCII palette detection is supported out of the box.
 - This is not a full DOM-to-ASCII renderer.
 - It focuses on a scoped theme layer and simple ASCII widgets (stickers + terminal component hooks).
