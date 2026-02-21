@@ -151,6 +151,8 @@ Open the URL shown by Vite.
 Live demo (GitHub Pages):
 https://markoblogo.github.io/AsciiTheme/
 
+- You can also see this theme in the wild on the AGENTS.md generator landing: https://agentsmd.abvx.xyz/
+
 To build the package:
 
 ```bash
