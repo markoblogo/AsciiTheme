@@ -27,6 +27,98 @@
   color: inherit;
 }
 
+/* Managed mode readability hardening for utility-heavy host styles. */
+:root[data-style="default"][data-ascii-mode="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-style="default"][data-ascii-mode="light"] {
+  color-scheme: light;
+}
+
+:root[data-style="default"][data-ascii-mode="dark"] :is(
+  [class*="text-black"],
+  [class*="text-zinc-9"],
+  [class*="text-neutral-9"],
+  [class*="text-slate-9"],
+  [class*="text-gray-9"],
+  [class*="text-stone-9"]
+) {
+  color: var(--text) !important;
+}
+
+:root[data-style="default"][data-ascii-mode="dark"] :is(
+  [class*="text-zinc-4"],
+  [class*="text-zinc-5"],
+  [class*="text-neutral-4"],
+  [class*="text-neutral-5"],
+  [class*="text-slate-4"],
+  [class*="text-slate-5"],
+  [class*="text-gray-4"],
+  [class*="text-gray-5"],
+  [class*="text-stone-4"],
+  [class*="text-stone-5"]
+) {
+  color: var(--muted) !important;
+}
+
+:root[data-style="default"][data-ascii-mode="dark"] :is(
+  [class*="bg-white"],
+  [class*="bg-zinc-0"],
+  [class*="bg-zinc-1"],
+  [class*="bg-neutral-0"],
+  [class*="bg-neutral-1"],
+  [class*="bg-slate-0"],
+  [class*="bg-slate-1"],
+  [class*="bg-gray-0"],
+  [class*="bg-gray-1"],
+  [class*="bg-stone-0"],
+  [class*="bg-stone-1"]
+) {
+  background: #101722 !important;
+  border-color: #2f3c4f !important;
+  color: var(--text) !important;
+}
+
+:root[data-style="default"][data-ascii-mode="dark"] :is(
+  [class*="border-zinc-2"],
+  [class*="border-zinc-3"],
+  [class*="border-neutral-2"],
+  [class*="border-neutral-3"],
+  [class*="border-slate-2"],
+  [class*="border-slate-3"],
+  [class*="border-gray-2"],
+  [class*="border-gray-3"],
+  [class*="border-stone-2"],
+  [class*="border-stone-3"]
+) {
+  border-color: #3a4b5d !important;
+}
+
+:root[data-style="default"][data-ascii-mode="light"] :is(
+  [class*="text-white"],
+  [class*="text-zinc-0"],
+  [class*="text-neutral-0"],
+  [class*="text-slate-0"],
+  [class*="text-gray-0"],
+  [class*="text-stone-0"]
+) {
+  color: var(--text) !important;
+}
+
+:root[data-style="default"][data-ascii-mode="light"] :is(
+  [class*="bg-black"],
+  [class*="bg-zinc-9"],
+  [class*="bg-neutral-9"],
+  [class*="bg-slate-9"],
+  [class*="bg-gray-9"],
+  [class*="bg-stone-9"]
+) {
+  background: #ffffff !important;
+  border-color: #cdd6e6 !important;
+  color: var(--text) !important;
+}
+
 :root[data-style="ascii"] {
   --a-bg: #ffffff;
   --a-fg: #0b2a7a;
