@@ -7,76 +7,106 @@
     <link rel="stylesheet" href="../src/base.css" />
   </head>
   <body>
-    <header class="container row" style="padding-block: 1rem; justify-content: space-between;">
-      <strong>AsciiTheme base preset</strong>
-      <nav class="row">
+    <header class="a-container a-section a-row a-between a-align-center a-gap-2">
+      <strong>AsciiTheme Base Preset</strong>
+      <nav class="a-row a-gap-2">
         <a href="/">Overlay demo</a>
         <a href="/base.html">Base preset demo</a>
       </nav>
       <div id="base-toggle-mount"></div>
     </header>
 
-    <main class="container stack" style="padding-bottom: 2rem;">
-      <section class="panel stack">
-        <h1>Base preset: ASCII as your only CSS</h1>
-        <p>This page uses <code>base.css</code> and <code>initAsciiTheme({ base: true })</code>.</p>
-        <p><small>Only the light/dark toggle is shown. ASCII style is always on.</small></p>
-        <div class="row">
-          <a class="button" href="#">Primary action</a>
-          <a href="#">Secondary link</a>
-          <span data-ascii-sticker="NEW FEATURE"></span>
+    <main class="a-container a-stack a-gap-3">
+      <section class="a-section a-stack a-gap-2" id="base-landing-demo">
+        <h1>Base preset landing demo</h1>
+        <p class="a-prose a-muted">
+          This page is composed with <code>base.css</code>, utility classes, and the built-in button/card helpers.
+          ASCII is always enabled and only the light/dark toggle is mounted.
+        </p>
+        <div class="a-row a-gap-2">
+          <a class="a-btn--primary" href="#">Start now</a>
+          <a class="a-btn--ghost" href="#">View docs</a>
+          <span class="a-badge" data-ascii-sticker="NEW RELEASE"></span>
         </div>
       </section>
 
-      <section class="grid">
-        <article class="card stack" data-ascii-role="card">
-          <h3>Form controls</h3>
-          <label for="demo-input">Input</label>
-          <input id="demo-input" placeholder="Type here" />
-          <label for="demo-select">Select</label>
-          <select id="demo-select">
-            <option>alpha</option>
-            <option>beta</option>
-          </select>
-          <label for="demo-textarea">Textarea</label>
-          <textarea id="demo-textarea">Example text...</textarea>
+      <section class="a-section a-grid a-cols-3 a-gap-2">
+        <article class="a-card a-stack a-gap-1">
+          <h3>Fast setup</h3>
+          <p class="a-muted">Drop in <code>base.css</code>, initialize once, and compose with predictable utility classes.</p>
         </article>
-
-        <article class="card stack" data-ascii-role="card">
-          <h3>Code + keyboard</h3>
-          <p>Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to focus search.</p>
-          <pre><code>import { initAsciiTheme } from "@markoblogo/ascii-theme";
-import "@markoblogo/ascii-theme/base.css";
-
-initAsciiTheme({ base: true, managedMode: true });</code></pre>
+        <article class="a-card a-stack a-gap-1">
+          <h3>Responsive by default</h3>
+          <p class="a-muted">Grid helpers start with one column and scale to 2/3 columns at <code>768px</code>.</p>
+        </article>
+        <article class="a-card a-stack a-gap-1">
+          <h3>No media overrides</h3>
+          <p class="a-muted">Images and videos keep host rendering unless your app styles them explicitly.</p>
         </article>
       </section>
 
-      <section class="panel stack">
-        <h3>Table</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Command</th>
-              <th>Purpose</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>toggleAsciiMode()</code></td>
-              <td>Switches light/dark palette.</td>
-            </tr>
-            <tr>
-              <td><code>renderAsciiStickers()</code></td>
-              <td>Renders <code>[data-ascii-sticker]</code> nodes as box-drawing labels.</td>
-            </tr>
-          </tbody>
-        </table>
+      <section class="a-section a-stack a-gap-2">
+        <h2>Use cases</h2>
+        <div class="a-grid a-cols-auto a-gap-2">
+          <article class="a-card a-stack a-gap-1">
+            <h3>Docs microsite</h3>
+            <p class="a-muted">Terminal-like docs layout with minimal CSS.</p>
+          </article>
+          <article class="a-card a-stack a-gap-1">
+            <h3>Tool landing</h3>
+            <p class="a-muted">Hero + cards + footer with one visual language.</p>
+          </article>
+          <article class="a-card a-stack a-gap-1">
+            <h3>Internal dashboard</h3>
+            <p class="a-muted">Compact controls and high-contrast defaults.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="a-section a-grid a-cols-2 a-gap-2">
+        <article class="a-panel a-stack a-gap-2">
+          <h2>Example table</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>.a-cols-3</code></td>
+                <td>1 column on mobile, 3 columns at md+</td>
+              </tr>
+              <tr>
+                <td><code>.a-span-2</code></td>
+                <td>Spans two columns at md+</td>
+              </tr>
+              <tr>
+                <td><code>.a-prose</code></td>
+                <td>Readable line length and spacing</td>
+              </tr>
+            </tbody>
+          </table>
+        </article>
+        <article class="a-panel a-stack a-gap-2">
+          <h2>Example code</h2>
+          <pre><code>import "@markoblogo/ascii-theme/base.css";
+import { initAsciiTheme } from "@markoblogo/ascii-theme";
+
+initAsciiTheme({
+  base: true,
+  managedMode: true,
+  addThemeToggle: true,
+  addStyleToggle: false,
+  mountSelector: "#base-toggle-mount"
+});</code></pre>
+        </article>
       </section>
     </main>
 
-    <footer class="container ascii-footnote" style="padding-bottom: 1.5rem;">
-      Base preset demo: ASCII is always enabled.
+    <footer class="a-container a-section ascii-footnote">
+      Base preset demo: utilities + base components only.
     </footer>
 
     <script type="module" src="/base-demo.js"></script>
