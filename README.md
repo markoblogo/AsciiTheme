@@ -168,6 +168,14 @@ initAsciiTheme({
 });
 ```
 
+## Integration standard (theme + ASCII)
+
+For cross-project consistency, follow the standard integration smoke-check:
+
+- Copy `templates/theme-smoke-check.mjs` into your host project and run it as `npm run smoke:theme`.
+- Apply the 4-state visual checklist from `docs/integration-smoke-check.md` (`default/ascii` x `light/dark`).
+- Use `integrateTheme: "respect"` for sites that already own light/dark; use `integrateTheme: "managed"` only for sites without host theme controls.
+
 ## Markup conventions
 
 - Style axis is applied to root by the plugin:
