@@ -38,7 +38,7 @@ initAsciiTheme();
 import { initAsciiTheme } from "@markoblogo/ascii-theme";
 import "@markoblogo/ascii-theme/style.css";
 
-initAsciiTheme({ managedMode: false });
+initAsciiTheme({ managedMode: false, base: false });
 ```
 
 ### Next.js (App Router / Pages Router)
@@ -144,6 +144,7 @@ initAsciiTheme({
 Notes:
 - Toggles are injected only when `mountSelector` is provided and toggle flags are enabled.
 - Theme toggle switches `dark`/`light`; style toggle text switches `ASCII`/`Default`.
+- When `base: true`, style toggle is automatically disabled and `data-style` is forced to `ascii`.
 
 ## Smart integration (auto detect host theme)
 
@@ -196,6 +197,72 @@ Use this order to avoid contrast regressions on utility-heavy sites:
 5. Add site-local bridge CSS only for truly project-specific tokens that cannot be generalized.
 6. Hardcoded Tailwind arbitrary tokens (for example `text-[#111827]`, `bg-[#F9FAFB]`, `border-[#E5E7EB]`) are normalized by default in managed dark and ASCII modes.
 
+## Use AsciiTheme as your only CSS (base preset)
+
+When you want an ASCII-first site with no separate style axis, use the base preset.
+In this mode ASCII is always on (`data-style="ascii"`), so you only keep the light/dark toggle.
+
+### Vite
+
+```ts
+import { initAsciiTheme } from "@markoblogo/ascii-theme";
+import "@markoblogo/ascii-theme/base.css";
+
+initAsciiTheme({
+  base: true,
+  managedMode: true,
+  addThemeToggle: true,
+  addStyleToggle: false,
+  mountSelector: ".header-controls",
+});
+```
+
+### Next.js
+
+Import base CSS once in `app/layout.tsx` or `pages/_app.tsx`:
+
+```ts
+import "@markoblogo/ascii-theme/base.css";
+```
+
+Run init in a client component:
+
+```tsx
+"use client";
+
+import { useEffect } from "react";
+import { initAsciiTheme } from "@markoblogo/ascii-theme";
+
+export function AsciiThemeBoot() {
+  useEffect(() => {
+    initAsciiTheme({
+      base: true,
+      managedMode: true,
+      addThemeToggle: true,
+      addStyleToggle: false,
+      mountSelector: ".header-controls",
+    });
+  }, []);
+  return null;
+}
+```
+
+CDN (pinned):
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/base.css" />
+<script src="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/ascii-theme.umd.js"></script>
+<script>
+  AsciiTheme.initAsciiTheme({
+    base: true,
+    managedMode: true,
+    addThemeToggle: true,
+    addStyleToggle: false,
+    mountSelector: ".header-controls",
+  });
+</script>
+```
+
 ## Markup conventions
 
 - Style axis is applied to root by the plugin:
@@ -210,7 +277,7 @@ Use this order to avoid contrast regressions on utility-heavy sites:
 
 ## Public API
 
-- `initAsciiTheme(options?)`
+- `initAsciiTheme(options?)` (`base: true` enables ASCII-only base preset)
 - `setAsciiStyle(style: "default" | "ascii")`
 - `toggleAsciiStyle()`
 - `getAsciiStyle(): "default" | "ascii"`
