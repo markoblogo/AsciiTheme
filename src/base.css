@@ -5,7 +5,7 @@
   --border: #0b2a7a;
   --link: #0b2a7a;
   --code-bg: #eef2ff;
-  --surface: #f8faff;
+  --surface: transparent;
   --font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
 
@@ -16,7 +16,7 @@
   --border: #39ff14;
   --link: #39ff14;
   --code-bg: #051305;
-  --surface: #050505;
+  --surface: transparent;
   color-scheme: dark;
 }
 
@@ -27,7 +27,7 @@
   --border: #0b2a7a;
   --link: #0b2a7a;
   --code-bg: #eef2ff;
-  --surface: #f8faff;
+  --surface: transparent;
   color-scheme: light;
 }
 
@@ -62,9 +62,17 @@
   letter-spacing: 0.01em;
 }
 
-:root[data-style="ascii"] h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
-:root[data-style="ascii"] h2 { font-size: clamp(1.45rem, 3.2vw, 2rem); }
-:root[data-style="ascii"] h3 { font-size: 1.3rem; }
+:root[data-style="ascii"] h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+}
+
+:root[data-style="ascii"] h2 {
+  font-size: clamp(1.45rem, 3.2vw, 2rem);
+}
+
+:root[data-style="ascii"] h3 {
+  font-size: 1.3rem;
+}
 
 :root[data-style="ascii"] p,
 :root[data-style="ascii"] ul,
@@ -93,39 +101,6 @@
   outline-offset: 2px;
 }
 
-:root[data-style="ascii"] button,
-:root[data-style="ascii"] a.button,
-:root[data-style="ascii"] .button,
-:root[data-style="ascii"] [data-ascii-role="cta"],
-:root[data-style="ascii"] [data-ascii-role="cta-secondary"],
-:root[data-style="ascii"] .ascii-btn,
-:root[data-style="ascii"] .ascii-theme-toggle-btn {
-  appearance: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  font: inherit;
-  color: var(--fg);
-  background: transparent;
-  border: 2px solid var(--border);
-  border-radius: 2px;
-  padding: 0.55rem 0.85rem;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-:root[data-style="ascii"] button:hover,
-:root[data-style="ascii"] a.button:hover,
-:root[data-style="ascii"] .button:hover,
-:root[data-style="ascii"] [data-ascii-role="cta"]:hover,
-:root[data-style="ascii"] [data-ascii-role="cta-secondary"]:hover,
-:root[data-style="ascii"] .ascii-btn:hover,
-:root[data-style="ascii"] .ascii-theme-toggle-btn:hover {
-  background: var(--fg);
-  color: var(--bg);
-}
-
 :root[data-style="ascii"] label {
   display: inline-block;
   margin: 0 0 0.4rem;
@@ -146,48 +121,6 @@
 :root[data-style="ascii"] textarea {
   min-height: 140px;
   resize: vertical;
-}
-
-:root[data-style="ascii"] .container {
-  width: min(980px, 100% - 2rem);
-  margin-inline: auto;
-}
-
-:root[data-style="ascii"] .stack {
-  display: grid;
-  gap: 1rem;
-}
-
-:root[data-style="ascii"] .row {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-}
-
-:root[data-style="ascii"] .grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-:root[data-style="ascii"] .panel,
-:root[data-style="ascii"] .card,
-:root[data-style="ascii"] [data-ascii-role="card"],
-:root[data-style="ascii"] .ascii-card {
-  border: 2px solid var(--border);
-  background: var(--surface);
-  border-radius: 2px;
-  padding: 1rem;
-}
-
-:root[data-style="ascii"] [data-ascii-role="badge"],
-:root[data-style="ascii"] .ascii-pill,
-:root[data-style="ascii"] .ascii-badge {
-  display: inline-block;
-  border: 1px solid var(--border);
-  border-radius: 2px;
-  padding: 0.1rem 0.45rem;
 }
 
 :root[data-style="ascii"] code,
@@ -228,6 +161,161 @@
   padding: 0.45rem 0.55rem;
 }
 
+/* Utility classes */
+:root[data-style="ascii"] .a-container,
+:root[data-style="ascii"] .container {
+  width: min(1080px, 100% - 2rem);
+  margin-inline: auto;
+}
+
+:root[data-style="ascii"] .a-section {
+  padding-block: 1.5rem;
+}
+
+:root[data-style="ascii"] .a-stack,
+:root[data-style="ascii"] .stack {
+  --a-gap: var(--a-gap, 12px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-gap);
+}
+
+:root[data-style="ascii"] .a-row,
+:root[data-style="ascii"] .row {
+  --a-gap: var(--a-gap, 12px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--a-gap);
+}
+
+:root[data-style="ascii"] .a-gap-1 {
+  --a-gap: 8px;
+}
+
+:root[data-style="ascii"] .a-gap-2 {
+  --a-gap: 12px;
+}
+
+:root[data-style="ascii"] .a-gap-3 {
+  --a-gap: 20px;
+}
+
+:root[data-style="ascii"] .a-center {
+  text-align: center;
+}
+
+:root[data-style="ascii"] .a-right {
+  text-align: right;
+}
+
+:root[data-style="ascii"] .a-between {
+  justify-content: space-between;
+}
+
+:root[data-style="ascii"] .a-align-center {
+  align-items: center;
+}
+
+:root[data-style="ascii"] .a-wrap {
+  flex-wrap: wrap;
+}
+
+:root[data-style="ascii"] .a-grid,
+:root[data-style="ascii"] .grid {
+  --a-gap: var(--a-gap, 12px);
+  display: grid;
+  gap: var(--a-gap);
+}
+
+:root[data-style="ascii"] .a-cols-2,
+:root[data-style="ascii"] .a-cols-3 {
+  grid-template-columns: 1fr;
+}
+
+:root[data-style="ascii"] .a-cols-auto {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+:root[data-style="ascii"] .a-prose {
+  max-width: 65ch;
+  line-height: 1.7;
+}
+
+:root[data-style="ascii"] .a-muted {
+  color: var(--muted);
+}
+
+:root[data-style="ascii"] .a-card,
+:root[data-style="ascii"] .a-panel,
+:root[data-style="ascii"] .card,
+:root[data-style="ascii"] .panel,
+:root[data-style="ascii"] [data-ascii-role="card"],
+:root[data-style="ascii"] .ascii-card {
+  border: 2px solid var(--border);
+  background: var(--surface);
+  border-radius: 2px;
+  padding: 1rem;
+}
+
+:root[data-style="ascii"] .a-btn,
+:root[data-style="ascii"] .a-btn--primary,
+:root[data-style="ascii"] .a-btn--ghost,
+:root[data-style="ascii"] button,
+:root[data-style="ascii"] a.button,
+:root[data-style="ascii"] .button,
+:root[data-style="ascii"] [data-ascii-role="cta"],
+:root[data-style="ascii"] [data-ascii-role="cta-secondary"],
+:root[data-style="ascii"] .ascii-btn,
+:root[data-style="ascii"] .ascii-theme-toggle-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font: inherit;
+  border: 2px solid var(--border);
+  border-radius: 2px;
+  padding: 0.55rem 0.85rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+:root[data-style="ascii"] .a-btn,
+:root[data-style="ascii"] .a-btn--ghost,
+:root[data-style="ascii"] button,
+:root[data-style="ascii"] .ascii-theme-toggle-btn {
+  color: var(--fg);
+  background: transparent;
+}
+
+:root[data-style="ascii"] .a-btn--primary {
+  color: var(--bg);
+  background: var(--fg);
+}
+
+:root[data-style="ascii"] .a-btn:hover,
+:root[data-style="ascii"] .a-btn--ghost:hover,
+:root[data-style="ascii"] button:hover,
+:root[data-style="ascii"] .ascii-theme-toggle-btn:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+:root[data-style="ascii"] .a-btn--primary:hover {
+  opacity: 0.9;
+}
+
+:root[data-style="ascii"] .a-badge,
+:root[data-style="ascii"] [data-ascii-role="badge"],
+:root[data-style="ascii"] .ascii-pill,
+:root[data-style="ascii"] .ascii-badge {
+  display: inline-block;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0.1rem 0.45rem;
+}
+
 :root[data-style="ascii"] .ascii-theme-toggle-group {
   display: inline-flex;
   align-items: center;
@@ -247,6 +335,20 @@
   font-size: 0.82rem;
   color: var(--muted);
   white-space: normal;
+}
+
+@media (min-width: 768px) {
+  :root[data-style="ascii"] .a-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  :root[data-style="ascii"] .a-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  :root[data-style="ascii"] .a-span-2 {
+    grid-column: span 2;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
