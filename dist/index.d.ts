@@ -1,12 +1,20 @@
 import "./style.css";
 export type AsciiStyle = "default" | "ascii";
 export type AsciiMode = "light" | "dark";
+export type ThemeIntegrationMode = "auto" | "respect" | "managed";
+export type ThemeDetection = {
+    hasHostTheme: boolean;
+    mode?: AsciiMode;
+};
 export type AsciiThemeOptions = {
     storageKey?: string;
     defaultStyle?: AsciiStyle;
     managedMode?: boolean;
     defaultMode?: AsciiMode;
     themeAttr?: string;
+    integrateTheme?: ThemeIntegrationMode;
+    detectTheme?: (root: HTMLElement) => ThemeDetection;
+    hasHostTheme?: boolean;
     addThemeToggle?: boolean;
     addStyleToggle?: boolean;
     mountSelector?: string | null;

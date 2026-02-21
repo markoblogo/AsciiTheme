@@ -1,77 +1,78 @@
-const I = document.documentElement;
+const E = document.documentElement;
+function L() {
+  return E;
+}
+function p(e, t = document) {
+  return Array.from(t.querySelectorAll(e));
+}
 function x() {
-  return I;
-}
-function k(t, e = document) {
-  return Array.from(e.querySelectorAll(t));
-}
-function $() {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
-function M(t) {
+function I(e) {
   try {
-    const e = localStorage.getItem(t);
-    if (!e)
+    const t = localStorage.getItem(e);
+    if (!t)
       return {};
-    const o = JSON.parse(e);
-    if (!o || typeof o != "object")
+    const a = JSON.parse(t);
+    if (!a || typeof a != "object")
       return {};
-    const i = o;
+    const n = a;
     return {
-      style: i.style === "ascii" ? "ascii" : i.style === "default" ? "default" : void 0,
-      mode: i.mode === "dark" ? "dark" : i.mode === "light" ? "light" : void 0
+      style: n.style === "ascii" ? "ascii" : n.style === "default" ? "default" : void 0,
+      mode: n.mode === "dark" ? "dark" : n.mode === "light" ? "light" : void 0
     };
   } catch {
     return {};
   }
 }
-function N(t, e) {
+function $(e, t) {
   try {
-    localStorage.setItem(t, JSON.stringify(e));
+    localStorage.setItem(e, JSON.stringify(t));
   } catch {
   }
 }
-const h = "asciiOriginalHtml", y = "data-ascii-sticker-rendered", L = "pre.ascii-sticker";
-function p(t, e = 2) {
-  const o = t.replace(/\s+/g, " ").trim(), i = `${" ".repeat(e)}${o}${" ".repeat(e)}`, d = `┌${"─".repeat(i.length)}┐`, u = `│${i}│`, m = `└${"─".repeat(i.length)}┘`;
+const h = "asciiOriginalHtml", T = "data-ascii-sticker-rendered", N = "pre.ascii-sticker";
+function S(e, t = 2) {
+  const a = e.replace(/\s+/g, " ").trim(), n = `${" ".repeat(t)}${a}${" ".repeat(t)}`, d = `┌${"─".repeat(n.length)}┐`, i = `│${n}│`, b = `└${"─".repeat(n.length)}┘`;
   return `${d}
-${u}
-${m}`;
+${i}
+${b}`;
 }
-function R(t) {
-  t.dataset[h] || (t.dataset[h] = t.innerHTML);
-  const e = (t.getAttribute("data-ascii-sticker") || "").trim();
-  if (!e)
+function R(e) {
+  e.dataset[h] || (e.dataset[h] = e.innerHTML);
+  const t = (e.getAttribute("data-ascii-sticker") || "").trim();
+  if (!t)
     return;
-  const o = t.querySelector(L);
-  if (t.getAttribute(y) === "1" && o) {
-    o.textContent = p(e);
+  const a = e.querySelector(N);
+  if (e.getAttribute(T) === "1" && a) {
+    a.textContent = S(t);
     return;
   }
-  t.innerHTML = "";
-  const i = document.createElement("pre");
-  i.className = "ascii-sticker", i.textContent = p(e), t.matches("button, a, [role='button']") && t.setAttribute("aria-label", e), t.appendChild(i), t.setAttribute(y, "1");
+  e.innerHTML = "";
+  const n = document.createElement("pre");
+  n.className = "ascii-sticker", n.textContent = S(t), e.matches("button, a, [role='button']") && e.setAttribute("aria-label", t), e.appendChild(n), e.setAttribute(T, "1");
 }
-function w(t) {
-  const e = t.dataset[h];
-  e !== void 0 && (t.innerHTML = e, t.removeAttribute(y));
+function w(e) {
+  const t = e.dataset[h];
+  t !== void 0 && (e.innerHTML = t, e.removeAttribute(T));
 }
-function v(t = document) {
-  const e = k("[data-ascii-sticker]", t);
-  for (const o of e)
-    R(o);
+function v(e = document) {
+  const t = p("[data-ascii-sticker]", e);
+  for (const a of t)
+    R(a);
 }
-function C(t = document) {
-  const e = k("[data-ascii-sticker]", t);
-  for (const o of e)
-    w(o);
+function C(e = document) {
+  const t = p("[data-ascii-sticker]", e);
+  for (const a of t)
+    w(a);
 }
-const g = {
+const s = {
   storageKey: "ascii_theme_v1",
   defaultStyle: "default",
   managedMode: !1,
   defaultMode: "light",
   themeAttr: "data-theme",
+  integrateTheme: "auto",
   addThemeToggle: !1,
   addStyleToggle: !1,
   mountSelector: "",
@@ -82,129 +83,169 @@ const g = {
   },
   className: ""
 };
-let n = { ...g };
-const a = x();
-let c = null, s = null, f = null;
-function A(t) {
-  return t === "ascii" ? "ascii" : "default";
+let r = { ...s };
+const o = L();
+let u = null, l = null, g = null;
+function f(e) {
+  return e === "ascii" ? "ascii" : "default";
 }
-function r(t) {
-  return t === "dark" ? "dark" : "light";
+function c(e) {
+  return e === "dark" ? "dark" : "light";
 }
-function O(t) {
-  if (!n.managedMode) {
-    a.removeAttribute("data-ascii-mode");
+function A(e) {
+  const t = o.getAttribute(e);
+  if (t === "dark" || t === "light")
+    return t;
+  const a = o.getAttribute("data-theme");
+  return a === "dark" || a === "light" ? a : o.classList.contains("dark") ? "dark" : (o.classList.contains("light"), "light");
+}
+function O(e) {
+  const t = o.getAttribute(e);
+  if (t === "dark" || t === "light")
+    return { hasHostTheme: !0, mode: t };
+  const a = o.getAttribute("data-theme");
+  return a === "dark" || a === "light" ? { hasHostTheme: !0, mode: a } : o.classList.contains("dark") ? { hasHostTheme: !0, mode: "dark" } : o.classList.contains("light") ? { hasHostTheme: !0, mode: "light" } : { hasHostTheme: !1 };
+}
+function q(e) {
+  const t = e.integrateTheme ?? s.integrateTheme, a = e.addThemeToggle ?? s.addThemeToggle, n = e.managedMode, d = e.defaultMode ? c(e.defaultMode) : x();
+  if (t === "managed")
+    return {
+      managedMode: !0,
+      addThemeToggle: a,
+      defaultMode: d
+    };
+  if (t === "respect")
+    return {
+      managedMode: !1,
+      addThemeToggle: !1,
+      defaultMode: A(e.themeAttr ?? s.themeAttr)
+    };
+  const i = e.detectTheme ? e.detectTheme(o) : O(e.themeAttr ?? s.themeAttr);
+  return e.hasHostTheme ?? i.hasHostTheme ? {
+    managedMode: !1,
+    addThemeToggle: !1,
+    defaultMode: c(i.mode ?? A(e.themeAttr ?? s.themeAttr))
+  } : {
+    managedMode: n ?? (a ? !0 : s.managedMode),
+    addThemeToggle: a,
+    defaultMode: d
+  };
+}
+function P(e) {
+  if (!r.managedMode) {
+    o.removeAttribute("data-ascii-mode");
     return;
   }
-  const e = r(t ?? n.defaultMode);
-  a.setAttribute("data-ascii-mode", e);
+  const t = c(e ?? r.defaultMode);
+  o.setAttribute("data-ascii-mode", t);
 }
-function E(t, e) {
-  const o = M(n.storageKey);
-  N(n.storageKey, {
-    ...o,
-    style: t,
-    mode: n.managedMode ? e : void 0
+function H(e, t) {
+  const a = I(r.storageKey);
+  $(r.storageKey, {
+    ...a,
+    style: e,
+    mode: r.managedMode ? t : void 0
   });
 }
-function P() {
-  return n.managedMode ? r(a.getAttribute("data-ascii-mode")) : r(a.getAttribute(n.themeAttr));
-}
-function l() {
-  if (s) {
-    const e = b() !== "ascii";
-    s.textContent = e ? "ASCII" : "Default", s.setAttribute(
-      "aria-label",
-      e ? "Switch to ASCII style" : "Switch to default style"
-    );
-  }
-  if (c) {
-    const t = P(), e = t === "dark" ? n.icons.moon ?? "☾" : n.icons.sun ?? "☀";
-    c.textContent = e, c.setAttribute(
-      "aria-label",
-      t === "dark" ? "Switch to light mode" : "Switch to dark mode"
-    );
-  }
-}
-function T(t, e) {
-  const o = document.createElement("button");
-  return o.type = "button", o.className = `ascii-theme-toggle-btn ${e}`.trim(), o.dataset.asciiToggleType = t, o;
-}
 function _() {
-  var u;
-  const t = n.mountSelector;
-  if (!(!!t && (n.addThemeToggle || n.addStyleToggle)) || !t)
-    return;
-  const o = document.querySelector(t);
-  if (!o)
-    return;
-  f != null && f.parentElement && f.remove();
-  const i = document.createElement("div");
-  i.className = "ascii-theme-toggle-group", i.setAttribute("data-ascii-controls", "1");
-  const d = ((u = n.className) == null ? void 0 : u.trim()) || "";
-  n.addThemeToggle ? (c = T("theme", d), c.addEventListener("click", () => {
-    H(), l();
-  })) : c = null, n.addStyleToggle ? (s = T("style", d), s.addEventListener("click", () => {
-    j(), l();
-  })) : s = null, c && i.append(c), s && i.append(s), n.mountPlacement === "prepend" ? o.prepend(i) : o.append(i), f = i, l();
+  return r.managedMode ? c(o.getAttribute("data-ascii-mode")) : A(r.themeAttr);
 }
-function S(t) {
-  const e = A(t);
-  a.setAttribute("data-style", e), e === "ascii" ? v(document) : C(document);
-  const o = n.managedMode ? r(a.getAttribute("data-ascii-mode")) : void 0;
-  return E(e, o), l(), e;
-}
-function q(t = {}) {
-  const e = t.managedMode ?? g.managedMode, o = t.defaultMode ? r(t.defaultMode) : e ? $() : g.defaultMode;
-  n = {
-    ...g,
-    ...t,
-    managedMode: e,
-    defaultStyle: A(t.defaultStyle ?? g.defaultStyle),
-    defaultMode: o
-  }, n.mountPlacement === "afterThemeToggle" && !n.addThemeToggle && (n.mountPlacement = "append");
-  const i = M(n.storageKey), d = A(i.style ?? n.defaultStyle);
-  if (n.managedMode)
-    O(i.mode ?? n.defaultMode);
-  else if (a.removeAttribute("data-ascii-mode"), n.themeAttr !== "data-theme") {
-    const m = a.getAttribute(n.themeAttr);
-    (m === "light" || m === "dark") && a.setAttribute("data-theme", m);
+function m() {
+  if (l) {
+    const t = y() !== "ascii";
+    l.textContent = t ? "ASCII" : "Default", l.setAttribute(
+      "aria-label",
+      t ? "Switch to ASCII style" : "Switch to default style"
+    );
   }
-  _();
-  const u = S(d);
-  return l(), u;
+  if (u) {
+    const e = _(), t = e === "dark" ? r.icons.moon ?? "☾" : r.icons.sun ?? "☀";
+    u.textContent = t, u.setAttribute(
+      "aria-label",
+      e === "dark" ? "Switch to light mode" : "Switch to dark mode"
+    );
+  }
 }
-function D(t) {
-  return S(t);
+function k(e, t) {
+  const a = document.createElement("button");
+  return a.type = "button", a.className = `ascii-theme-toggle-btn ${t}`.trim(), a.dataset.asciiToggleType = e, a;
 }
 function j() {
-  const t = b();
-  return S(t === "ascii" ? "default" : "ascii");
+  var i;
+  const e = r.mountSelector;
+  if (!(!!e && (r.addThemeToggle || r.addStyleToggle)) || !e)
+    return;
+  const a = document.querySelector(e);
+  if (!a)
+    return;
+  g != null && g.parentElement && g.remove();
+  const n = document.createElement("div");
+  n.className = "ascii-theme-toggle-group", n.setAttribute("data-ascii-controls", "1");
+  const d = ((i = r.className) == null ? void 0 : i.trim()) || "";
+  r.addThemeToggle ? (u = k("theme", d), u.addEventListener("click", () => {
+    K(), m();
+  })) : u = null, r.addStyleToggle ? (l = k("style", d), l.addEventListener("click", () => {
+    B(), m();
+  })) : l = null, u && n.append(u), l && n.append(l), r.mountPlacement === "prepend" ? a.prepend(n) : a.append(n), g = n, m();
 }
-function b() {
-  return A(a.getAttribute("data-style"));
+function M(e) {
+  const t = f(e);
+  o.setAttribute("data-style", t), t === "ascii" ? v(document) : C(document);
+  const a = r.managedMode ? c(o.getAttribute("data-ascii-mode")) : void 0;
+  return H(t, a), m(), t;
 }
-function B(t) {
-  if (!n.managedMode)
-    return r(a.getAttribute(n.themeAttr));
-  const e = r(t);
-  return a.setAttribute("data-ascii-mode", e), E(b(), e), l(), e;
+function z(e = {}) {
+  const t = q(e);
+  r = {
+    ...s,
+    ...e,
+    managedMode: t.managedMode,
+    addThemeToggle: t.addThemeToggle,
+    defaultStyle: f(e.defaultStyle ?? s.defaultStyle),
+    defaultMode: t.defaultMode
+  }, r.mountPlacement === "afterThemeToggle" && !r.addThemeToggle && (r.mountPlacement = "append");
+  const a = I(r.storageKey), n = f(a.style ?? r.defaultStyle);
+  if (r.managedMode)
+    P(a.mode ?? r.defaultMode);
+  else if (o.removeAttribute("data-ascii-mode"), r.themeAttr !== "data-theme") {
+    const i = o.getAttribute(r.themeAttr);
+    (i === "light" || i === "dark") && o.setAttribute("data-theme", i);
+  }
+  j();
+  const d = M(n);
+  return m(), d;
 }
-function H() {
-  if (!n.managedMode)
-    return r(a.getAttribute(n.themeAttr));
-  const t = r(a.getAttribute("data-ascii-mode"));
-  return B(t === "dark" ? "light" : "dark");
+function J(e) {
+  return M(e);
 }
-function K(t = document) {
-  v(t);
+function B() {
+  const e = y();
+  return M(e === "ascii" ? "default" : "ascii");
+}
+function y() {
+  return f(o.getAttribute("data-style"));
+}
+function D(e) {
+  if (!r.managedMode)
+    return c(o.getAttribute(r.themeAttr));
+  const t = c(e);
+  return o.setAttribute("data-ascii-mode", t), H(y(), t), m(), t;
+}
+function K() {
+  if (!r.managedMode)
+    return c(o.getAttribute(r.themeAttr));
+  const e = c(o.getAttribute("data-ascii-mode"));
+  return D(e === "dark" ? "light" : "dark");
+}
+function U(e = document) {
+  v(e);
 }
 export {
-  b as getAsciiStyle,
-  q as initAsciiTheme,
-  K as renderAsciiStickers,
-  B as setAsciiMode,
-  D as setAsciiStyle,
-  H as toggleAsciiMode,
-  j as toggleAsciiStyle
+  y as getAsciiStyle,
+  z as initAsciiTheme,
+  U as renderAsciiStickers,
+  D as setAsciiMode,
+  J as setAsciiStyle,
+  K as toggleAsciiMode,
+  B as toggleAsciiStyle
 };

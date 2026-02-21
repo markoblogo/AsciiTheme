@@ -6,6 +6,11 @@ import { renderAsciiStickers as renderStickers, restoreAsciiStickers } from "./s
 
 export type AsciiStyle = "default" | "ascii";
 export type AsciiMode = "light" | "dark";
+export type ThemeIntegrationMode = "auto" | "respect" | "managed";
+export type ThemeDetection = {
+  hasHostTheme: boolean;
+  mode?: AsciiMode;
+};
 
 export type AsciiThemeOptions = {
   storageKey?: string;
@@ -13,6 +18,9 @@ export type AsciiThemeOptions = {
   managedMode?: boolean;
   defaultMode?: AsciiMode;
   themeAttr?: string;
+  integrateTheme?: ThemeIntegrationMode;
+  detectTheme?: (root: HTMLElement) => ThemeDetection;
+  hasHostTheme?: boolean;
   addThemeToggle?: boolean;
   addStyleToggle?: boolean;
   mountSelector?: string | null;
@@ -24,12 +32,19 @@ export type AsciiThemeOptions = {
   className?: string;
 };
 
-const DEFAULTS: Required<AsciiThemeOptions> = {
+type ResolvedAsciiThemeOptions = Omit<
+  Required<AsciiThemeOptions>,
+  "detectTheme" | "hasHostTheme"
+> &
+  Pick<AsciiThemeOptions, "detectTheme" | "hasHostTheme">;
+
+const DEFAULTS: ResolvedAsciiThemeOptions = {
   storageKey: "ascii_theme_v1",
   defaultStyle: "default",
   managedMode: false,
   defaultMode: "light",
   themeAttr: "data-theme",
+  integrateTheme: "auto",
   addThemeToggle: false,
   addStyleToggle: false,
   mountSelector: "",
@@ -41,7 +56,7 @@ const DEFAULTS: Required<AsciiThemeOptions> = {
   className: "",
 };
 
-let config: Required<AsciiThemeOptions> = { ...DEFAULTS };
+let config: ResolvedAsciiThemeOptions = { ...DEFAULTS };
 const root = getRoot();
 let themeToggleButton: HTMLButtonElement | null = null;
 let styleToggleButton: HTMLButtonElement | null = null;
@@ -53,6 +68,96 @@ function normalizeStyle(value: unknown): AsciiStyle {
 
 function normalizeMode(value: unknown): AsciiMode {
   return value === "dark" ? "dark" : "light";
+}
+
+function readHostMode(themeAttr: string): AsciiMode {
+  const attrMode = root.getAttribute(themeAttr);
+  if (attrMode === "dark" || attrMode === "light") {
+    return attrMode;
+  }
+
+  const dataTheme = root.getAttribute("data-theme");
+  if (dataTheme === "dark" || dataTheme === "light") {
+    return dataTheme;
+  }
+
+  if (root.classList.contains("dark")) {
+    return "dark";
+  }
+  if (root.classList.contains("light")) {
+    return "light";
+  }
+
+  return "light";
+}
+
+function builtInThemeDetection(themeAttr: string): ThemeDetection {
+  const attrMode = root.getAttribute(themeAttr);
+  if (attrMode === "dark" || attrMode === "light") {
+    return { hasHostTheme: true, mode: attrMode };
+  }
+
+  const dataTheme = root.getAttribute("data-theme");
+  if (dataTheme === "dark" || dataTheme === "light") {
+    return { hasHostTheme: true, mode: dataTheme };
+  }
+
+  if (root.classList.contains("dark")) {
+    return { hasHostTheme: true, mode: "dark" };
+  }
+  if (root.classList.contains("light")) {
+    return { hasHostTheme: true, mode: "light" };
+  }
+
+  return { hasHostTheme: false };
+}
+
+function resolveThemeIntegration(options: AsciiThemeOptions): {
+  managedMode: boolean;
+  addThemeToggle: boolean;
+  defaultMode: AsciiMode;
+} {
+  const integration = options.integrateTheme ?? DEFAULTS.integrateTheme;
+  const requestedThemeToggle = options.addThemeToggle ?? DEFAULTS.addThemeToggle;
+  const requestedManaged = options.managedMode;
+  const preferredMode = options.defaultMode
+    ? normalizeMode(options.defaultMode)
+    : getPreferredMode();
+
+  if (integration === "managed") {
+    return {
+      managedMode: true,
+      addThemeToggle: requestedThemeToggle,
+      defaultMode: preferredMode,
+    };
+  }
+
+  if (integration === "respect") {
+    return {
+      managedMode: false,
+      addThemeToggle: false,
+      defaultMode: readHostMode(options.themeAttr ?? DEFAULTS.themeAttr),
+    };
+  }
+
+  const detected = options.detectTheme
+    ? options.detectTheme(root)
+    : builtInThemeDetection(options.themeAttr ?? DEFAULTS.themeAttr);
+
+  const hasHostTheme = options.hasHostTheme ?? detected.hasHostTheme;
+  if (hasHostTheme) {
+    return {
+      managedMode: false,
+      addThemeToggle: false,
+      defaultMode: normalizeMode(detected.mode ?? readHostMode(options.themeAttr ?? DEFAULTS.themeAttr)),
+    };
+  }
+
+  return {
+    managedMode: requestedManaged ?? (requestedThemeToggle ? true : DEFAULTS.managedMode),
+    addThemeToggle: requestedThemeToggle,
+    defaultMode: preferredMode,
+  };
 }
 
 function syncAsciiModeIfManaged(mode?: AsciiMode): void {
@@ -78,7 +183,7 @@ function getAsciiMode(): AsciiMode {
   if (config.managedMode) {
     return normalizeMode(root.getAttribute("data-ascii-mode"));
   }
-  return normalizeMode(root.getAttribute(config.themeAttr));
+  return readHostMode(config.themeAttr);
 }
 
 function updateInjectedToggleUI(): void {
@@ -196,19 +301,15 @@ function applyStyle(style: AsciiStyle): AsciiStyle {
 }
 
 export function initAsciiTheme(options: AsciiThemeOptions = {}): AsciiStyle {
-  const managedMode = options.managedMode ?? DEFAULTS.managedMode;
-  const defaultMode = options.defaultMode
-    ? normalizeMode(options.defaultMode)
-    : managedMode
-      ? getPreferredMode()
-      : DEFAULTS.defaultMode;
+  const integration = resolveThemeIntegration(options);
 
   config = {
     ...DEFAULTS,
     ...options,
-    managedMode,
+    managedMode: integration.managedMode,
+    addThemeToggle: integration.addThemeToggle,
     defaultStyle: normalizeStyle(options.defaultStyle ?? DEFAULTS.defaultStyle),
-    defaultMode,
+    defaultMode: integration.defaultMode,
   };
 
   // Keep behavior predictable even if only one toggle is injected.
