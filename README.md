@@ -156,3 +156,37 @@ To build the package:
 ```bash
 npm run build
 ```
+
+## Release checklist (v0.1.0)
+
+Before tagging:
+
+```bash
+git status --short
+npm ci
+npm run build
+npm run demo:build
+```
+
+Create and push release tag:
+
+```bash
+# version is already 0.1.0 in package.json
+git add -A
+git commit -m "chore: release v0.1.0"
+git tag v0.1.0
+git push origin main --tags
+```
+
+Manual npm publish (requires ownership and credentials):
+
+```bash
+npm login
+npm publish --access public
+```
+
+If package is unscoped, use:
+
+```bash
+npm publish
+```
