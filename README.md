@@ -2,7 +2,9 @@
 
 [![npm version](https://img.shields.io/npm/v/%40markoblogo%2Fascii-theme)](https://www.npmjs.com/package/@markoblogo/ascii-theme)
 [![npm downloads](https://img.shields.io/npm/dm/%40markoblogo%2Fascii-theme)](https://www.npmjs.com/package/@markoblogo/ascii-theme)
+[![CI](https://github.com/markoblogo/AsciiTheme/actions/workflows/ci.yml/badge.svg)](https://github.com/markoblogo/AsciiTheme/actions/workflows/ci.yml)
 [![Pages](https://github.com/markoblogo/AsciiTheme/actions/workflows/pages.yml/badge.svg)](https://github.com/markoblogo/AsciiTheme/actions/workflows/pages.yml)
+[![Demo](https://img.shields.io/badge/demo-live-22c55e)](https://markoblogo.github.io/AsciiTheme/)
 [![License](https://img.shields.io/github/license/markoblogo/AsciiTheme)](LICENSE)
 
 AsciiTheme is a framework-agnostic micro-package that adds an ASCII visual layer to existing pages.
@@ -66,8 +68,8 @@ export function AsciiThemeBoot() {
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme/dist/style.css" />
-<script src="https://unpkg.com/@markoblogo/ascii-theme/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme@0.1.0/dist/style.css" />
+<script src="https://unpkg.com/@markoblogo/ascii-theme@0.1.0/dist/ascii-theme.umd.js"></script>
 <script>
   AsciiTheme.initAsciiTheme({ managedMode: false });
 </script>
