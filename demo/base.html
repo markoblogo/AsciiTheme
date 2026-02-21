@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" data-style="ascii" data-ascii-mode="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AsciiTheme Base Preset Demo</title>
+    <link rel="stylesheet" href="../src/base.css" />
+  </head>
+  <body>
+    <header class="container row" style="padding-block: 1rem; justify-content: space-between;">
+      <strong>AsciiTheme base preset</strong>
+      <nav class="row">
+        <a href="/">Overlay demo</a>
+        <a href="/base.html">Base preset demo</a>
+      </nav>
+      <div id="base-toggle-mount"></div>
+    </header>
+
+    <main class="container stack" style="padding-bottom: 2rem;">
+      <section class="panel stack">
+        <h1>Base preset: ASCII as your only CSS</h1>
+        <p>This page uses <code>base.css</code> and <code>initAsciiTheme({ base: true })</code>.</p>
+        <p><small>Only the light/dark toggle is shown. ASCII style is always on.</small></p>
+        <div class="row">
+          <a class="button" href="#">Primary action</a>
+          <a href="#">Secondary link</a>
+          <span data-ascii-sticker="NEW FEATURE"></span>
+        </div>
+      </section>
+
+      <section class="grid">
+        <article class="card stack" data-ascii-role="card">
+          <h3>Form controls</h3>
+          <label for="demo-input">Input</label>
+          <input id="demo-input" placeholder="Type here" />
+          <label for="demo-select">Select</label>
+          <select id="demo-select">
+            <option>alpha</option>
+            <option>beta</option>
+          </select>
+          <label for="demo-textarea">Textarea</label>
+          <textarea id="demo-textarea">Example text...</textarea>
+        </article>
+
+        <article class="card stack" data-ascii-role="card">
+          <h3>Code + keyboard</h3>
+          <p>Press <kbd>Ctrl</kbd> + <kbd>K</kbd> to focus search.</p>
+          <pre><code>import { initAsciiTheme } from "@markoblogo/ascii-theme";
+import "@markoblogo/ascii-theme/base.css";
+
+initAsciiTheme({ base: true, managedMode: true });</code></pre>
+        </article>
+      </section>
+
+      <section class="panel stack">
+        <h3>Table</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>toggleAsciiMode()</code></td>
+              <td>Switches light/dark palette.</td>
+            </tr>
+            <tr>
+              <td><code>renderAsciiStickers()</code></td>
+              <td>Renders <code>[data-ascii-sticker]</code> nodes as box-drawing labels.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="container ascii-footnote" style="padding-bottom: 1.5rem;">
+      Base preset demo: ASCII is always enabled.
+    </footer>
+
+    <script type="module" src="/base-demo.js"></script>
+  </body>
+</html>

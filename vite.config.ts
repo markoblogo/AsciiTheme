@@ -9,6 +9,12 @@ export default defineConfig(({ mode }) => {
       build: {
         outDir: "../demo-dist",
         emptyOutDir: true,
+        rollupOptions: {
+          input: {
+            main: resolve(__dirname, "demo/index.html"),
+            base: resolve(__dirname, "demo/base.html"),
+          },
+        },
       },
     };
   }

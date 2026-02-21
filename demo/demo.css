@@ -32,6 +32,11 @@ body {
   background: #fff;
 }
 
+.demo-links {
+  display: flex;
+  gap: 0.65rem;
+}
+
 .demo-actions {
   display: flex;
   gap: 0.5rem;
