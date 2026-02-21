@@ -194,6 +194,7 @@ Use this order to avoid contrast regressions on utility-heavy sites:
 3. Run the 4-state smoke check (`default/light`, `default/dark`, `ascii/light`, `ascii/dark`).
 4. If contrast is still weak in managed mode, rely on built-in readability hardening for common `text-*` / `bg-*` / `border-*` utility classes before adding site-local CSS.
 5. Add site-local bridge CSS only for truly project-specific tokens that cannot be generalized.
+6. Hardcoded Tailwind arbitrary tokens (for example `text-[#111827]`, `bg-[#F9FAFB]`, `border-[#E5E7EB]`) are normalized by default in managed dark and ASCII modes.
 
 ## Markup conventions
 
