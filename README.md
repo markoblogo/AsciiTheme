@@ -1,5 +1,10 @@
 # AsciiTheme
 
+[![npm version](https://img.shields.io/npm/v/%40markoblogo%2Fascii-theme)](https://www.npmjs.com/package/@markoblogo/ascii-theme)
+[![npm downloads](https://img.shields.io/npm/dm/%40markoblogo%2Fascii-theme)](https://www.npmjs.com/package/@markoblogo/ascii-theme)
+[![Pages](https://github.com/markoblogo/AsciiTheme/actions/workflows/pages.yml/badge.svg)](https://github.com/markoblogo/AsciiTheme/actions/workflows/pages.yml)
+[![License](https://img.shields.io/github/license/markoblogo/AsciiTheme)](LICENSE)
+
 AsciiTheme is a framework-agnostic micro-package that adds an ASCII visual layer to existing pages.
 It provides:
 - `data-style="default|ascii"` management
@@ -7,6 +12,8 @@ It provides:
 - box-drawing sticker rendering for `[data-ascii-sticker]`
 
 Runtime has no dependencies.
+
+`dist/` is committed to git for CDN convenience and reproducible release snapshots.
 
 ## Install
 
@@ -21,6 +28,39 @@ import { initAsciiTheme } from "@markoblogo/ascii-theme";
 import "@markoblogo/ascii-theme/style.css";
 
 initAsciiTheme();
+```
+
+### Vite (React or vanilla)
+
+```ts
+import { initAsciiTheme } from "@markoblogo/ascii-theme";
+import "@markoblogo/ascii-theme/style.css";
+
+initAsciiTheme({ managedMode: false });
+```
+
+### Next.js (App Router / Pages Router)
+
+Import CSS once in `app/layout.tsx` or `pages/_app.tsx`:
+
+```ts
+import "@markoblogo/ascii-theme/style.css";
+```
+
+Run init only on the client:
+
+```tsx
+"use client";
+
+import { useEffect } from "react";
+import { initAsciiTheme } from "@markoblogo/ascii-theme";
+
+export function AsciiThemeBoot() {
+  useEffect(() => {
+    initAsciiTheme();
+  }, []);
+  return null;
+}
 ```
 
 ### CDN
@@ -107,6 +147,9 @@ npm run dev
 ```
 
 Open the URL shown by Vite.
+
+Live demo (GitHub Pages):
+https://markoblogo.github.io/AsciiTheme/
 
 To build the package:
 
