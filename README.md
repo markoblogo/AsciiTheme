@@ -136,6 +136,38 @@ Notes:
 - Toggles are injected only when `mountSelector` is provided and toggle flags are enabled.
 - Theme toggle switches `dark`/`light`; style toggle text switches `ASCII`/`Default`.
 
+## Smart integration (auto detect host theme)
+
+Use `integrateTheme` to control how mode is handled:
+
+- `integrateTheme: "respect"`: always use host theme; never inject plugin theme toggle.
+- `integrateTheme: "managed"`: plugin controls `data-ascii-mode` and can inject both toggles.
+- `integrateTheme: "auto"` (default): if host theme is detected, plugin switches to respect mode and disables injected theme toggle automatically.
+
+For sites that already have their own light/dark switch:
+
+```js
+initAsciiTheme({
+  integrateTheme: "auto",
+  addThemeToggle: true, // auto mode disables this when host theme is detected
+  addStyleToggle: true,
+  mountSelector: ".header-controls",
+});
+```
+
+For sites without host theme:
+
+```js
+initAsciiTheme({
+  integrateTheme: "managed",
+  managedMode: true,
+  defaultMode: "dark",
+  addThemeToggle: true,
+  addStyleToggle: true,
+  mountSelector: ".header-controls",
+});
+```
+
 ## Markup conventions
 
 - Style axis is applied to root by the plugin:
@@ -163,6 +195,7 @@ Notes:
 - This is not a full DOM-to-ASCII renderer.
 - It focuses on a scoped theme layer and simple ASCII widgets (stickers + terminal component hooks).
 - CSS is scoped to `:root[data-style="ascii"]` to avoid host-site breakage.
+- Media is not restyled by default in ASCII mode (`img/video/avatar/logo` remain unchanged unless you style them explicitly).
 
 ## Demo
 
@@ -178,6 +211,7 @@ https://markoblogo.github.io/AsciiTheme/
 
 - You can also see this theme in the wild on the AGENTS.md generator landing: https://agentsmd.abvx.xyz/
 - You can also see this theme on go.abvx.xyz: https://go.abvx.xyz/
+- You can also see this theme on abvx.xyz: https://abvx.xyz/
 - First-time setup: in GitHub repository settings, set **Pages -> Source** to **GitHub Actions** once, then rerun the Pages workflow.
 
 To build the package:
