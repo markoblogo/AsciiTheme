@@ -209,6 +209,7 @@ Open the URL shown by Vite.
 Live demo (GitHub Pages):
 https://markoblogo.github.io/AsciiTheme/
 
+In the wild:
 - You can also see this theme in the wild on the AGENTS.md generator landing: https://agentsmd.abvx.xyz/
 - You can also see this theme on go.abvx.xyz: https://go.abvx.xyz/
 - You can also see this theme on abvx.xyz: https://abvx.xyz/
