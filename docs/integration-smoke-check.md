@@ -73,3 +73,12 @@ initAsciiTheme({
   mountSelector: '.header-controls',
 });
 ```
+
+
+## 4) Distribution fallback (npm unavailable)
+
+If npm package install is blocked/unavailable in the host repo:
+
+- Load AsciiTheme from pinned CDN assets (`jsDelivr`/`unpkg`) using a **commit hash or release tag**.
+- Do not use floating references like `@main` in production integrations.
+- Keep the same init options and smoke-check flow; only the distribution method changes.

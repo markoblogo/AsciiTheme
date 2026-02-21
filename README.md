@@ -75,6 +75,15 @@ export function AsciiThemeBoot() {
 </script>
 ```
 
+If npm install is unavailable in a host project, use a pinned GitHub commit via jsDelivr:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/markoblogo/AsciiTheme@<commit>/dist/style.css" />
+<script src="https://cdn.jsdelivr.net/gh/markoblogo/AsciiTheme@<commit>/dist/ascii-theme.umd.js"></script>
+```
+
+Use a commit hash or release tag, not `@main`.
+
 ## Basic usage (respect host theme)
 
 By default, the package does **not** control your host light/dark theme.
@@ -223,6 +232,7 @@ In the wild:
 - You can also see this theme in the wild on the AGENTS.md generator landing: https://agentsmd.abvx.xyz/
 - You can also see this theme on go.abvx.xyz: https://go.abvx.xyz/
 - You can also see this theme on abvx.xyz: https://abvx.xyz/
+- You can also see this theme on trade-solution.eu: https://trade-solution.eu/
 - First-time setup: in GitHub repository settings, set **Pages -> Source** to **GitHub Actions** once, then rerun the Pages workflow.
 
 To build the package:
