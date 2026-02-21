@@ -1,3 +1,32 @@
+:root[data-style="default"][data-ascii-mode] {
+  --a-ui-bg: transparent;
+  --a-ui-fg: currentColor;
+  --a-ui-border: currentColor;
+}
+
+:root[data-style="default"][data-ascii-mode="dark"] {
+  --bg: #0b0c10;
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.62);
+  --border: rgba(255, 255, 255, 0.18);
+}
+
+:root[data-style="default"][data-ascii-mode="light"] {
+  --bg: #f7f9ff;
+  --text: #121a2b;
+  --muted: #3f4f73;
+  --border: rgba(18, 26, 43, 0.22);
+}
+
+:root[data-style="default"][data-ascii-mode] body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+:root[data-style="default"][data-ascii-mode] a {
+  color: inherit;
+}
+
 :root[data-style="ascii"] {
   --a-bg: #ffffff;
   --a-fg: #0b2a7a;
@@ -18,6 +47,35 @@
   --a-bg: #ffffff;
   --a-fg: #0b2a7a;
   --a-muted: #1a409c;
+}
+
+:root[data-style][data-ascii-mode] .ascii-theme-toggle-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+:root[data-style][data-ascii-mode] .ascii-theme-toggle-btn {
+  appearance: none;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  border-radius: 8px;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 0.35rem 0.6rem;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+:root[data-style][data-ascii-mode] .ascii-theme-toggle-btn:hover {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+}
+
+:root[data-style][data-ascii-mode] .ascii-theme-toggle-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 :root[data-style="ascii"] body {

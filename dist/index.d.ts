@@ -7,6 +7,15 @@ export type AsciiThemeOptions = {
     managedMode?: boolean;
     defaultMode?: AsciiMode;
     themeAttr?: string;
+    addThemeToggle?: boolean;
+    addStyleToggle?: boolean;
+    mountSelector?: string | null;
+    mountPlacement?: "append" | "prepend" | "afterThemeToggle";
+    icons?: {
+        sun?: string;
+        moon?: string;
+    };
+    className?: string;
 };
 export declare function initAsciiTheme(options?: AsciiThemeOptions): AsciiStyle;
 export declare function setAsciiStyle(style: AsciiStyle): AsciiStyle;

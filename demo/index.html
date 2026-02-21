@@ -10,23 +10,20 @@
   <body>
     <header class="demo-topbar" data-ascii-role="nav">
       <strong>AsciiTheme demo</strong>
-      <div class="demo-actions">
-        <button id="style-toggle" type="button" data-ascii-role="cta">ASCII</button>
-        <button id="mode-toggle" type="button" data-ascii-role="cta-secondary">Mode: light</button>
-      </div>
+      <div class="demo-actions" id="demo-toggle-mount"></div>
     </header>
 
     <main class="demo-main">
       <section class="demo-grid">
         <article class="demo-card" data-ascii-role="card">
           <h3>Style toggle</h3>
-          <p>Switches <code>data-style</code> between <code>default</code> and <code>ascii</code>.</p>
+          <p>Injected controls switch <code>data-style</code> between <code>default</code> and <code>ascii</code>.</p>
           <a href="#" data-ascii-role="cta">Primary action</a>
         </article>
 
         <article class="demo-card" data-ascii-role="card">
           <h3>Managed mode</h3>
-          <p>This demo runs with <code>managedMode: true</code>, so the plugin controls <code>data-ascii-mode</code>.</p>
+          <p>This demo runs with <code>managedMode: true</code>, so the plugin controls <code>data-ascii-mode</code> and injects sun/moon + ASCII toggles.</p>
           <a href="#" data-ascii-role="cta-secondary">Secondary action</a>
         </article>
 
