@@ -49,13 +49,13 @@
   --a-muted: #1a409c;
 }
 
-:root[data-style][data-ascii-mode] .ascii-theme-toggle-group {
+.ascii-theme-toggle-group {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
-:root[data-style][data-ascii-mode] .ascii-theme-toggle-btn {
+.ascii-theme-toggle-btn {
   appearance: none;
   border: 1px solid currentColor;
   background: transparent;
@@ -69,11 +69,11 @@
   cursor: pointer;
 }
 
-:root[data-style][data-ascii-mode] .ascii-theme-toggle-btn:hover {
+.ascii-theme-toggle-btn:hover {
   background: color-mix(in srgb, currentColor 12%, transparent);
 }
 
-:root[data-style][data-ascii-mode] .ascii-theme-toggle-btn:focus-visible {
+.ascii-theme-toggle-btn:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
 }
@@ -84,7 +84,7 @@
   font-family: var(--a-font);
 }
 
-:root[data-style="ascii"] * {
+:root[data-style="ascii"] :where(*):not(img):not(video):not(canvas):not(svg):not(picture):not(source) {
   box-shadow: none !important;
   text-shadow: none !important;
   background-image: none !important;
