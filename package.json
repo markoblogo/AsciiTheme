@@ -1,5 +1,5 @@
 {
-  "name": "@markoblogo/ascii-theme",
+  "name": "@abvx/ascii-theme",
   "version": "0.2.0",
   "description": "Framework-agnostic ASCII theme layer with style/mode toggles and box-drawing stickers.",
   "type": "module",

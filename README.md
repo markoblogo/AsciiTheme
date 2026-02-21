@@ -1,7 +1,7 @@
 # AsciiTheme
 
-[![npm version](https://img.shields.io/npm/v/%40markoblogo%2Fascii-theme)](https://www.npmjs.com/package/@markoblogo/ascii-theme)
-[![npm downloads](https://img.shields.io/npm/dm/%40markoblogo%2Fascii-theme)](https://www.npmjs.com/package/@markoblogo/ascii-theme)
+[![npm version](https://img.shields.io/npm/v/%40abvx%2Fascii-theme)](https://www.npmjs.com/package/@abvx/ascii-theme)
+[![npm downloads](https://img.shields.io/npm/dm/%40abvx%2Fascii-theme)](https://www.npmjs.com/package/@abvx/ascii-theme)
 [![CI](https://github.com/markoblogo/AsciiTheme/actions/workflows/ci.yml/badge.svg)](https://github.com/markoblogo/AsciiTheme/actions/workflows/ci.yml)
 [![Pages](https://github.com/markoblogo/AsciiTheme/actions/workflows/pages.yml/badge.svg)](https://github.com/markoblogo/AsciiTheme/actions/workflows/pages.yml)
 [![Demo](https://img.shields.io/badge/demo-live-22c55e)](https://markoblogo.github.io/AsciiTheme/)
@@ -22,12 +22,12 @@ Runtime has no dependencies.
 ### npm
 
 ```bash
-npm install @markoblogo/ascii-theme
+npm install @abvx/ascii-theme
 ```
 
 ```js
-import { initAsciiTheme } from "@markoblogo/ascii-theme";
-import "@markoblogo/ascii-theme/style.css";
+import { initAsciiTheme } from "@abvx/ascii-theme";
+import "@abvx/ascii-theme/style.css";
 
 initAsciiTheme();
 ```
@@ -35,8 +35,8 @@ initAsciiTheme();
 ### Vite (React or vanilla)
 
 ```ts
-import { initAsciiTheme } from "@markoblogo/ascii-theme";
-import "@markoblogo/ascii-theme/style.css";
+import { initAsciiTheme } from "@abvx/ascii-theme";
+import "@abvx/ascii-theme/style.css";
 
 initAsciiTheme({ managedMode: false, base: false });
 ```
@@ -46,7 +46,7 @@ initAsciiTheme({ managedMode: false, base: false });
 Import CSS once in `app/layout.tsx` or `pages/_app.tsx`:
 
 ```ts
-import "@markoblogo/ascii-theme/style.css";
+import "@abvx/ascii-theme/style.css";
 ```
 
 Run init only on the client:
@@ -55,7 +55,7 @@ Run init only on the client:
 "use client";
 
 import { useEffect } from "react";
-import { initAsciiTheme } from "@markoblogo/ascii-theme";
+import { initAsciiTheme } from "@abvx/ascii-theme";
 
 export function AsciiThemeBoot() {
   useEffect(() => {
@@ -68,8 +68,8 @@ export function AsciiThemeBoot() {
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/style.css" />
-<script src="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/style.css" />
+<script src="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/ascii-theme.umd.js"></script>
 <script>
   AsciiTheme.initAsciiTheme({ managedMode: false });
 </script>
@@ -94,7 +94,7 @@ It reads the host theme attribute (`data-theme` by default):
 ```
 
 ```js
-import { initAsciiTheme } from "@markoblogo/ascii-theme";
+import { initAsciiTheme } from "@abvx/ascii-theme";
 
 initAsciiTheme({ managedMode: false });
 ```
@@ -111,7 +111,7 @@ If you want the plugin to control mode itself:
 import {
   initAsciiTheme,
   toggleAsciiMode,
-} from "@markoblogo/ascii-theme";
+} from "@abvx/ascii-theme";
 
 initAsciiTheme({ managedMode: true, defaultMode: "light" });
 
@@ -127,7 +127,7 @@ Managed mode uses `data-ascii-mode="light|dark"` on `:root`.
 Use this when the host site has no built-in theme switch and you want the plugin to mount compact controls in a header container:
 
 ```js
-import { initAsciiTheme } from "@markoblogo/ascii-theme";
+import { initAsciiTheme } from "@abvx/ascii-theme";
 
 initAsciiTheme({
   managedMode: true,
@@ -205,8 +205,8 @@ In this mode ASCII is always on (`data-style="ascii"`), so you only keep the lig
 ### Vite
 
 ```ts
-import { initAsciiTheme } from "@markoblogo/ascii-theme";
-import "@markoblogo/ascii-theme/base.css";
+import { initAsciiTheme } from "@abvx/ascii-theme";
+import "@abvx/ascii-theme/base.css";
 
 initAsciiTheme({
   base: true,
@@ -222,7 +222,7 @@ initAsciiTheme({
 Import base CSS once in `app/layout.tsx` or `pages/_app.tsx`:
 
 ```ts
-import "@markoblogo/ascii-theme/base.css";
+import "@abvx/ascii-theme/base.css";
 ```
 
 Run init in a client component (initAsciiTheme must run client-side):
@@ -231,7 +231,7 @@ Run init in a client component (initAsciiTheme must run client-side):
 "use client";
 
 import { useEffect } from "react";
-import { initAsciiTheme } from "@markoblogo/ascii-theme";
+import { initAsciiTheme } from "@abvx/ascii-theme";
 
 export function AsciiThemeBoot() {
   useEffect(() => {
@@ -250,8 +250,8 @@ export function AsciiThemeBoot() {
 CDN (pinned):
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/base.css" />
-<script src="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/base.css" />
+<script src="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/ascii-theme.umd.js"></script>
 <script>
   AsciiTheme.initAsciiTheme({
     base: true,
@@ -268,8 +268,8 @@ CDN (pinned):
 Base preset is ASCII-only by design, so there is no style toggle in this mode. Keep the light/dark toggle enabled.
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/base.css" />
-<script src="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/base.css" />
+<script src="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/ascii-theme.umd.js"></script>
 
 <header class="a-container a-section a-cluster a-between">
   <strong>ASCII Landing</strong>
