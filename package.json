@@ -26,10 +26,13 @@
     "dist/style.css"
   ],
   "scripts": {
-    "dev": "vite --mode demo",
+    "dev": "npm run demo:dev",
+    "demo:dev": "vite --mode demo",
+    "demo:build": "vite build --mode demo",
+    "demo:preview": "vite preview --mode demo",
     "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
     "build": "npm run build:types && vite build",
-    "preview": "vite build --mode demo && vite preview --mode demo"
+    "preview": "npm run demo:preview"
   },
   "keywords": [
     "ascii",

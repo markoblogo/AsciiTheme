@@ -5,6 +5,7 @@ export default defineConfig(({ mode }) => {
   if (mode === "demo") {
     return {
       root: "demo",
+      base: "/AsciiTheme/",
       build: {
         outDir: "../demo-dist",
         emptyOutDir: true,
