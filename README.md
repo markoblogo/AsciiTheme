@@ -113,6 +113,29 @@ document.getElementById("mode-btn")?.addEventListener("click", () => {
 
 Managed mode uses `data-ascii-mode="light|dark"` on `:root`.
 
+## Managed theme + injected toggles (for sites without light/dark)
+
+Use this when the host site has no built-in theme switch and you want the plugin to mount compact controls in a header container:
+
+```js
+import { initAsciiTheme } from "@markoblogo/ascii-theme";
+
+initAsciiTheme({
+  managedMode: true,
+  defaultMode: "dark",
+  defaultStyle: "default",
+  addThemeToggle: true,
+  addStyleToggle: true,
+  mountSelector: "header .right",
+  mountPlacement: "append",
+  className: "header-button",
+});
+```
+
+Notes:
+- Toggles are injected only when `mountSelector` is provided and toggle flags are enabled.
+- Theme toggle switches `dark`/`light`; style toggle text switches `ASCII`/`Default`.
+
 ## Markup conventions
 
 - Style axis is applied to root by the plugin:
