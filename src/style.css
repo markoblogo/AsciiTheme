@@ -88,6 +88,22 @@
 }
 
 :root[data-style="default"][data-ascii-mode="dark"] :is(
+  .card,
+  .card-gloss,
+  [class*="card-gloss"],
+  [class*="card "],
+  [class$=" card"],
+  [class^="card-"],
+  [class*=" panel"],
+  [class$=" panel"],
+  [class^="panel-"]
+) {
+  background: #101722 !important;
+  border-color: #2f3c4f !important;
+  color: var(--text) !important;
+}
+
+:root[data-style="default"][data-ascii-mode="dark"] :is(
   [class*="border-[#E5E7EB]"],
   [class*="border-black/10"],
   [class*="border-zinc-2"],
@@ -312,6 +328,22 @@
   [class*="bg-[#F9FAFB]"],
   [class*="bg-[#F3F4F6]"],
   [class*="bg-[#ECFDF3]"]
+) {
+  background: transparent !important;
+  border-color: currentColor !important;
+  color: currentColor !important;
+}
+
+:root[data-style="ascii"] :is(
+  .card,
+  .card-gloss,
+  [class*="card-gloss"],
+  [class*="card "],
+  [class$=" card"],
+  [class^="card-"],
+  [class*=" panel"],
+  [class$=" panel"],
+  [class^="panel-"]
 ) {
   background: transparent !important;
   border-color: currentColor !important;
