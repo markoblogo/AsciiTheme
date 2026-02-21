@@ -263,6 +263,54 @@ CDN (pinned):
 </script>
 ```
 
+## Utility classes
+
+| Class | Purpose | Notes |
+| --- | --- | --- |
+| `.a-container` | Constrains page width and adds horizontal padding. | Centered with auto margins. |
+| `.a-section` | Vertical spacing for page sections. | Use on `header`, `section`, `footer` blocks. |
+| `.a-stack` | Vertical flex layout with configurable gap. | Uses `--a-gap` (defaults to `12px`). |
+| `.a-row` | Horizontal flex layout with wrapping and configurable gap. | Uses `--a-gap` (defaults to `12px`). |
+| `.a-gap-1` | Small gap helper. | Sets `--a-gap: 8px`. |
+| `.a-gap-2` | Default gap helper. | Sets `--a-gap: 12px`. |
+| `.a-gap-3` | Large gap helper. | Sets `--a-gap: 20px`. |
+| `.a-center` | Centers text alignment. | `text-align: center`. |
+| `.a-right` | Right-aligns text. | `text-align: right`. |
+| `.a-between` | Distributes flex items across available space. | `justify-content: space-between`. |
+| `.a-align-center` | Centers flex items on cross axis. | `align-items: center`. |
+| `.a-wrap` | Forces flex wrapping. | Useful for compact nav/button groups. |
+| `.a-grid` | Base grid container with configurable gap. | Uses `--a-gap` (defaults to `12px`). |
+| `.a-cols-2` | Responsive 2-column grid. | `1` column by default, `2` columns at `>=768px`. |
+| `.a-cols-3` | Responsive 3-column grid. | `1` column by default, `3` columns at `>=768px`. |
+| `.a-cols-auto` | Auto-fit card grid. | `repeat(auto-fit, minmax(220px, 1fr))`. |
+| `.a-span-2` | Expands an item across two columns. | Applies at `>=768px`. |
+| `.a-prose` | Readable text measure and spacing. | `max-width: 65ch` + increased line-height. |
+| `.a-muted` | Secondary text color. | Uses `var(--muted)`. |
+| `.a-card` | Terminal card surface. | Border + padding + transparent background. |
+| `.a-panel` | Larger panel surface. | Same visual treatment as `.a-card`. |
+| `.a-btn` | Base button style. | Border-only terminal button. |
+| `.a-btn--primary` | Emphasized button style. | Filled with foreground color. |
+| `.a-btn--ghost` | Secondary button style. | Transparent button with border. |
+| `.a-badge` | Compact badge/pill style. | Border + small padding. |
+
+```html
+<main class="a-container a-stack a-gap-3">
+  <section class="a-section a-stack a-gap-2">
+    <h1>Ship faster with AsciiTheme</h1>
+    <p class="a-prose a-muted">Base preset gives you typography, layout, and controls with one stylesheet.</p>
+    <div class="a-row a-gap-2">
+      <a class="a-btn--primary" href="#">Start</a>
+      <a class="a-btn--ghost" href="#">Read docs</a>
+    </div>
+  </section>
+  <section class="a-section a-grid a-cols-3 a-gap-2">
+    <article class="a-card">Feature A</article>
+    <article class="a-card">Feature B</article>
+    <article class="a-card">Feature C</article>
+  </section>
+</main>
+```
+
 ## Markup conventions
 
 - Style axis is applied to root by the plugin:
