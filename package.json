@@ -1,6 +1,6 @@
 {
   "name": "@markoblogo/ascii-theme",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Framework-agnostic ASCII theme layer with style/mode toggles and box-drawing stickers.",
   "type": "module",
   "main": "./dist/ascii-theme.umd.js",

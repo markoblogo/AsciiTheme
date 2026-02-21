@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 - 2026-02-21
+
+- Added SSR-safe `initAsciiTheme` guard for Next.js/SSR environments.
+- Added system theme default (`prefers-color-scheme`) for first-run managed/base mode.
+- Added base preset utilities: `.a-visually-hidden` and `.a-balance`.
+- Added docs: minimal base-preset landing example.
+
+
 ## 0.1.1 - 2026-02-21
 
 - Added managed integrator toggles (`addThemeToggle`, `addStyleToggle`, `mountSelector`) for sites without existing light/dark UI.
