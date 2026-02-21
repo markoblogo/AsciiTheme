@@ -265,12 +265,27 @@ CDN (pinned):
 
 ## Utility classes
 
+Core token contract (base preset):
+`--bg`, `--fg`, `--muted`, `--border`, `--link`, `--code-bg`, `--radius`, `--pad`, `--gap`, `--container`, `--line`, `--font`, `--focus`.
+
+Light/dark mapping in managed mode is applied via:
+- `:root[data-ascii-mode="light"]` (dark blue on white)
+- `:root[data-ascii-mode="dark"]` (terminal green on black)
+
+### Layout utilities
+
+- `.a-split`: 1 column on mobile, 2 equal columns at `>=768px`.
+- `.a-aside`: 1 column on mobile, content + sidebar (`minmax(0, 1fr) 320px`) at `>=768px`.
+- `.a-aside--reverse`: flips `.a-aside` column order at `>=768px`.
+- `.a-cluster`: inline wrapped row with `gap: var(--gap)` and centered alignment.
+
 | Class | Purpose | Notes |
 | --- | --- | --- |
 | `.a-container` | Constrains page width and adds horizontal padding. | Centered with auto margins. |
-| `.a-section` | Vertical spacing for page sections. | Use on `header`, `section`, `footer` blocks. |
-| `.a-stack` | Vertical flex layout with configurable gap. | Uses `--a-gap` (defaults to `12px`). |
-| `.a-row` | Horizontal flex layout with wrapping and configurable gap. | Uses `--a-gap` (defaults to `12px`). |
+| `.a-section` | Vertical spacing for page sections. | Uses `--pad` for subtle rhythm. |
+| `.a-stack` | Vertical flex layout with configurable gap. | Uses `--a-gap` (default from `--gap`). |
+| `.a-row` | Horizontal flex layout with wrapping and configurable gap. | Uses `--a-gap` (default from `--gap`). |
+| `.a-cluster` | Inline row layout for nav/tags/footer links. | Wrapped + aligned center. |
 | `.a-gap-1` | Small gap helper. | Sets `--a-gap: 8px`. |
 | `.a-gap-2` | Default gap helper. | Sets `--a-gap: 12px`. |
 | `.a-gap-3` | Large gap helper. | Sets `--a-gap: 20px`. |
@@ -278,12 +293,15 @@ CDN (pinned):
 | `.a-right` | Right-aligns text. | `text-align: right`. |
 | `.a-between` | Distributes flex items across available space. | `justify-content: space-between`. |
 | `.a-align-center` | Centers flex items on cross axis. | `align-items: center`. |
-| `.a-wrap` | Forces flex wrapping. | Useful for compact nav/button groups. |
-| `.a-grid` | Base grid container with configurable gap. | Uses `--a-gap` (defaults to `12px`). |
+| `.a-wrap` | Forces flex wrapping. | Useful for compact control groups. |
+| `.a-grid` | Base grid container with configurable gap. | Uses `--a-gap` (default from `--gap`). |
 | `.a-cols-2` | Responsive 2-column grid. | `1` column by default, `2` columns at `>=768px`. |
 | `.a-cols-3` | Responsive 3-column grid. | `1` column by default, `3` columns at `>=768px`. |
 | `.a-cols-auto` | Auto-fit card grid. | `repeat(auto-fit, minmax(220px, 1fr))`. |
 | `.a-span-2` | Expands an item across two columns. | Applies at `>=768px`. |
+| `.a-split` | Two-panel layout primitive. | Becomes two equal columns at `>=768px`. |
+| `.a-aside` | Content + sidebar primitive. | Uses `1fr + 320px` at `>=768px`. |
+| `.a-aside--reverse` | Reversed content + sidebar primitive. | Flips `.a-aside` columns at `>=768px`. |
 | `.a-prose` | Readable text measure and spacing. | `max-width: 65ch` + increased line-height. |
 | `.a-muted` | Secondary text color. | Uses `var(--muted)`. |
 | `.a-card` | Terminal card surface. | Border + padding + transparent background. |
@@ -295,13 +313,16 @@ CDN (pinned):
 
 ```html
 <main class="a-container a-stack a-gap-3">
-  <section class="a-section a-stack a-gap-2">
-    <h1>Ship faster with AsciiTheme</h1>
-    <p class="a-prose a-muted">Base preset gives you typography, layout, and controls with one stylesheet.</p>
-    <div class="a-row a-gap-2">
-      <a class="a-btn--primary" href="#">Start</a>
-      <a class="a-btn--ghost" href="#">Read docs</a>
+  <section class="a-section a-split a-gap-3">
+    <div class="a-stack a-gap-2">
+      <h1>Ship faster with AsciiTheme</h1>
+      <p class="a-prose a-muted">Base preset gives you typography, layout, and controls with one stylesheet.</p>
+      <div class="a-cluster a-gap-2">
+        <a class="a-btn--primary" href="#">Start</a>
+        <a class="a-btn--ghost" href="#">Read docs</a>
+      </div>
     </div>
+    <aside class="a-panel">Sidebar panel</aside>
   </section>
   <section class="a-section a-grid a-cols-3 a-gap-2">
     <article class="a-card">Feature A</article>
