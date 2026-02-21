@@ -25,3 +25,6 @@ jobs:
 
       - name: Build demo
         run: npm run demo:build
+
+      - name: Pack smoke test
+        run: npm pack

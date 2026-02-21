@@ -186,6 +186,21 @@ For cross-project consistency, follow the standard integration smoke-check:
 - Apply the 4-state visual checklist from `docs/integration-smoke-check.md` (`default/ascii` x `light/dark`).
 - Use `integrateTheme: "respect"` for sites that already own light/dark; use `integrateTheme: "managed"` only for sites without host theme controls.
 
+## Integration decision tree
+
+- Host site already has light/dark theme + toggle:
+  use `integrateTheme: "auto"`, keep host theme toggle, add only ASCII toggle (`addStyleToggle: true`).
+- Host site has no theme system:
+  use `base: true`, `managedMode: true`, `addThemeToggle: true`, `addStyleToggle: false`.
+- Always keep media untouched by default (`img/video/logo/avatar`): no global media overrides.
+
+## Post-release checklist
+
+1. Publish package to npm.
+2. Update integrations to the new package/version (`@abvx/ascii-theme@x.y.z`).
+3. Run integration smoke-check (`default/light`, `default/dark`, `ascii/light`, `ascii/dark`).
+4. Verify no legacy links remain (`@markoblogo/...` or old jsDelivr GH pins).
+
 ### No host-theme + hardcoded colors playbook
 
 Use this order to avoid contrast regressions on utility-heavy sites:
