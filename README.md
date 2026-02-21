@@ -68,8 +68,8 @@ export function AsciiThemeBoot() {
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme@0.1.0/dist/style.css" />
-<script src="https://unpkg.com/@markoblogo/ascii-theme@0.1.0/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/style.css" />
+<script src="https://unpkg.com/@markoblogo/ascii-theme@0.1.1/dist/ascii-theme.umd.js"></script>
 <script>
   AsciiTheme.initAsciiTheme({ managedMode: false });
 </script>
