@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="../src/base.css" />
   </head>
   <body>
-    <header class="a-container a-section a-row a-between a-align-center a-gap-2">
+    <header class="a-container a-section a-cluster a-between">
       <strong>AsciiTheme Base Preset</strong>
-      <nav class="a-row a-gap-2">
+      <nav class="a-cluster a-gap-2">
         <a href="/">Overlay demo</a>
         <a href="/base.html">Base preset demo</a>
       </nav>
@@ -17,27 +17,35 @@
     </header>
 
     <main class="a-container a-stack a-gap-3">
-      <section class="a-section a-stack a-gap-2" id="base-landing-demo">
-        <h1>Base preset landing demo</h1>
-        <p class="a-prose a-muted">
-          This page is composed with <code>base.css</code>, utility classes, and the built-in button/card helpers.
-          ASCII is always enabled and only the light/dark toggle is mounted.
-        </p>
-        <div class="a-row a-gap-2">
-          <a class="a-btn--primary" href="#">Start now</a>
-          <a class="a-btn--ghost" href="#">View docs</a>
-          <span class="a-badge" data-ascii-sticker="NEW RELEASE"></span>
+      <section class="a-section a-split a-gap-3" id="base-landing-demo">
+        <div class="a-stack a-gap-2">
+          <h1>Base preset landing demo</h1>
+          <p class="a-prose a-muted">
+            This page is composed with <code>base.css</code>, utility classes, and base components only.
+            ASCII style is always on, and just the light/dark toggle is mounted.
+          </p>
+          <div class="a-cluster a-gap-2">
+            <a class="a-btn--primary" href="#">Start now</a>
+            <a class="a-btn--ghost" href="#">View docs</a>
+            <span class="a-badge" data-ascii-sticker="NEW RELEASE"></span>
+          </div>
         </div>
+        <aside class="a-panel a-stack a-gap-2">
+          <h3>Quick check</h3>
+          <blockquote>One stylesheet + a few utilities is enough for a full landing skeleton.</blockquote>
+          <p class="a-muted">Try <kbd>Tab</kbd> to verify focus and <kbd>Enter</kbd> for button states.</p>
+          <button class="a-btn" type="button" aria-disabled="true">Disabled action</button>
+        </aside>
       </section>
 
       <section class="a-section a-grid a-cols-3 a-gap-2">
         <article class="a-card a-stack a-gap-1">
           <h3>Fast setup</h3>
-          <p class="a-muted">Drop in <code>base.css</code>, initialize once, and compose with predictable utility classes.</p>
+          <p class="a-muted">Drop in <code>base.css</code>, initialize once, and compose with predictable utilities.</p>
         </article>
         <article class="a-card a-stack a-gap-1">
-          <h3>Responsive by default</h3>
-          <p class="a-muted">Grid helpers start with one column and scale to 2/3 columns at <code>768px</code>.</p>
+          <h3>Responsive defaults</h3>
+          <p class="a-muted">Layouts stay single-column on mobile and expand at the 768px breakpoint.</p>
         </article>
         <article class="a-card a-stack a-gap-1">
           <h3>No media overrides</h3>
@@ -45,49 +53,53 @@
         </article>
       </section>
 
-      <section class="a-section a-stack a-gap-2">
-        <h2>Use cases</h2>
-        <div class="a-grid a-cols-auto a-gap-2">
-          <article class="a-card a-stack a-gap-1">
-            <h3>Docs microsite</h3>
-            <p class="a-muted">Terminal-like docs layout with minimal CSS.</p>
-          </article>
-          <article class="a-card a-stack a-gap-1">
-            <h3>Tool landing</h3>
-            <p class="a-muted">Hero + cards + footer with one visual language.</p>
-          </article>
-          <article class="a-card a-stack a-gap-1">
-            <h3>Internal dashboard</h3>
-            <p class="a-muted">Compact controls and high-contrast defaults.</p>
-          </article>
+      <section class="a-section a-aside a-gap-3">
+        <div class="a-stack a-gap-2">
+          <h2>Use cases</h2>
+          <p class="a-prose a-muted">Build docs microsites, product pages, and internal tools with the same token contract.</p>
+          <div class="a-grid a-cols-auto a-gap-2">
+            <article class="a-card">Docs microsite</article>
+            <article class="a-card">Tool landing</article>
+            <article class="a-card">Internal dashboard</article>
+          </div>
         </div>
+        <aside class="a-panel a-stack a-gap-2">
+          <h3>Token contract</h3>
+          <ul>
+            <li><code>--bg</code>, <code>--fg</code>, <code>--muted</code></li>
+            <li><code>--border</code>, <code>--link</code>, <code>--code-bg</code></li>
+            <li><code>--radius</code>, <code>--pad</code>, <code>--gap</code>, <code>--container</code></li>
+          </ul>
+        </aside>
       </section>
 
       <section class="a-section a-grid a-cols-2 a-gap-2">
         <article class="a-panel a-stack a-gap-2">
           <h2>Example table</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Class</th>
-                <th>Result</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>.a-cols-3</code></td>
-                <td>1 column on mobile, 3 columns at md+</td>
-              </tr>
-              <tr>
-                <td><code>.a-span-2</code></td>
-                <td>Spans two columns at md+</td>
-              </tr>
-              <tr>
-                <td><code>.a-prose</code></td>
-                <td>Readable line length and spacing</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="a-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>.a-split</code></td>
+                  <td>Two equal columns at md+, one column on mobile.</td>
+                </tr>
+                <tr>
+                  <td><code>.a-aside</code></td>
+                  <td>Content + 320px sidebar at md+.</td>
+                </tr>
+                <tr>
+                  <td><code>.a-cluster</code></td>
+                  <td>Inline wrapped row for links/actions/tags.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </article>
         <article class="a-panel a-stack a-gap-2">
           <h2>Example code</h2>
@@ -105,8 +117,9 @@ initAsciiTheme({
       </section>
     </main>
 
-    <footer class="a-container a-section ascii-footnote">
-      Base preset demo: utilities + base components only.
+    <footer class="a-container a-section ascii-footnote a-cluster a-gap-2">
+      <span>Base preset demo: utilities + base components only.</span>
+      <a href="https://github.com/markoblogo/AsciiTheme">Source</a>
     </footer>
 
     <script type="module" src="/base-demo.js"></script>
