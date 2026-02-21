@@ -94,6 +94,24 @@
   padding-left: 1.25rem;
 }
 
+:root[data-style="ascii"] ul ul,
+:root[data-style="ascii"] ul ol,
+:root[data-style="ascii"] ol ul,
+:root[data-style="ascii"] ol ol {
+  margin: 0.45rem 0 0.6rem;
+}
+
+:root[data-style="ascii"] li + li {
+  margin-top: 0.2rem;
+}
+
+:root[data-style="ascii"] blockquote {
+  margin: 0 0 1rem;
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  border-left: 2px solid var(--border);
+  color: var(--muted);
+}
+
 :root[data-style="ascii"] small {
   color: var(--muted);
 }
@@ -111,6 +129,22 @@
 }
 
 :root[data-style="ascii"] :focus-visible {
+  outline: var(--focus);
+  outline-offset: 2px;
+}
+
+:root[data-style="ascii"] :is(
+  button,
+  input,
+  textarea,
+  select,
+  a,
+  [role="button"],
+  .a-btn,
+  .a-btn--primary,
+  .a-btn--ghost,
+  .ascii-theme-toggle-btn
+):focus-visible {
   outline: var(--focus);
   outline-offset: 2px;
 }
@@ -283,6 +317,17 @@
   opacity: 0.9;
 }
 
+:root[data-style="ascii"] :is(button, .a-btn, .a-btn--primary, .a-btn--ghost):active {
+  transform: translateY(1px);
+}
+
+:root[data-style="ascii"] :is(button, .a-btn, .a-btn--primary, .a-btn--ghost):disabled,
+:root[data-style="ascii"] :is(button, .a-btn, .a-btn--primary, .a-btn--ghost)[aria-disabled="true"],
+:root[data-style="ascii"] :is(input, textarea, select):disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 :root[data-style="ascii"] label {
   display: inline-block;
   margin: 0 0 0.4rem;
@@ -305,6 +350,11 @@
   resize: vertical;
 }
 
+:root[data-style="ascii"] ::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
 :root[data-style="ascii"] .a-badge,
 :root[data-style="ascii"] [data-ascii-role="badge"],
 :root[data-style="ascii"] .ascii-pill,
@@ -313,6 +363,54 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 0.1rem 0.45rem;
+}
+
+:root[data-style="ascii"] code,
+:root[data-style="ascii"] kbd {
+  font-family: inherit;
+  font-size: 0.95em;
+  background: var(--code-bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.08rem 0.35rem;
+}
+
+:root[data-style="ascii"] kbd {
+  background: transparent;
+}
+
+:root[data-style="ascii"] pre {
+  margin: 0 0 1rem;
+  padding: 0.75rem;
+  overflow-x: auto;
+  border: 2px solid var(--border);
+  background: var(--code-bg);
+  border-radius: var(--radius);
+}
+
+:root[data-style="ascii"] pre code {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+:root[data-style="ascii"] table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1rem;
+}
+
+:root[data-style="ascii"] th,
+:root[data-style="ascii"] td {
+  text-align: left;
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.55rem;
+  vertical-align: top;
+}
+
+:root[data-style="ascii"] .a-table-wrap {
+  width: 100%;
+  overflow-x: auto;
 }
 
 :root[data-style="ascii"] .ascii-theme-toggle-group {
