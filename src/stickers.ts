@@ -1,6 +1,8 @@
 import { queryAll } from "./dom";
 
 const ORIGINAL_HTML_ATTR = "asciiOriginalHtml";
+const RENDERED_ATTR = "data-ascii-sticker-rendered";
+const PRE_SELECTOR = "pre.ascii-sticker";
 
 function makeBox(text: string, paddingX = 2): string {
   const label = text.replace(/\s+/g, " ").trim();
@@ -21,13 +23,8 @@ function renderSticker(element: HTMLElement): void {
     return;
   }
 
-  const existing = element.firstElementChild;
-  if (
-    existing &&
-    existing.tagName === "PRE" &&
-    existing.classList.contains("ascii-sticker") &&
-    element.childElementCount === 1
-  ) {
+  const existing = element.querySelector<HTMLPreElement>(PRE_SELECTOR);
+  if (element.getAttribute(RENDERED_ATTR) === "1" && existing) {
     existing.textContent = makeBox(label);
     return;
   }
@@ -42,6 +39,7 @@ function renderSticker(element: HTMLElement): void {
   }
 
   element.appendChild(pre);
+  element.setAttribute(RENDERED_ATTR, "1");
 }
 
 function restoreSticker(element: HTMLElement): void {
@@ -50,6 +48,7 @@ function restoreSticker(element: HTMLElement): void {
     return;
   }
   element.innerHTML = original;
+  element.removeAttribute(RENDERED_ATTR);
 }
 
 export function renderAsciiStickers(root: ParentNode = document): void {
