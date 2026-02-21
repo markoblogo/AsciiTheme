@@ -36,14 +36,18 @@
 }
 
 :root[data-style="ascii"][data-theme="dark"],
-:root[data-style="ascii"][data-ascii-mode="dark"] {
+:root[data-style="ascii"][data-ascii-mode="dark"],
+:root[data-style="ascii"].dark,
+:root.dark[data-style="ascii"] {
   --a-bg: #000000;
   --a-fg: #39ff14;
   --a-muted: #2ddd18;
 }
 
 :root[data-style="ascii"][data-theme="light"],
-:root[data-style="ascii"][data-ascii-mode="light"] {
+:root[data-style="ascii"][data-ascii-mode="light"],
+:root[data-style="ascii"].light,
+:root.light[data-style="ascii"] {
   --a-bg: #ffffff;
   --a-fg: #0b2a7a;
   --a-muted: #1a409c;
@@ -160,6 +164,41 @@
   background: transparent;
   line-height: 1.2;
   white-space: pre;
+}
+
+
+/* ASCII readability hardening for utility-heavy host styles. */
+:root[data-style="ascii"] {
+  color-scheme: light;
+}
+
+:root[data-style="ascii"][data-theme="dark"],
+:root[data-style="ascii"][data-ascii-mode="dark"],
+:root[data-style="ascii"].dark,
+:root.dark[data-style="ascii"] {
+  color-scheme: dark;
+}
+
+:root[data-style="ascii"] :where(h1, h2, h3, h4, h5, h6, p, li, span, small, strong, em, label, dt, dd) {
+  color: inherit;
+}
+
+:root[data-style="ascii"] :is(a, button) {
+  color: inherit;
+}
+
+:root[data-style="ascii"] :is([class*="text-zinc-"], [class*="text-neutral-"], [class*="text-slate-"], [class*="text-gray-"]) {
+  color: inherit !important;
+}
+
+:root[data-style="ascii"] :is([class*="bg-zinc-9"], [class*="bg-zinc-8"], [class*="bg-black"], [class*="bg-neutral-9"], [class*="bg-slate-9"], [class*="bg-gray-9"]) {
+  background: transparent !important;
+  border-color: currentColor !important;
+  color: currentColor !important;
+}
+
+:root[data-style="ascii"] :is([class*="ring-zinc-"], [class*="ring-neutral-"], [class*="ring-slate-"], [class*="ring-gray-"]) {
+  --tw-ring-color: currentColor !important;
 }
 
 :root[data-style="ascii"] .ascii-footnote {

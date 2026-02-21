@@ -192,6 +192,8 @@ initAsciiTheme({
 
 ## Notes / limitations
 
+- Contrast defaults in ASCII mode are tuned for utility-heavy sites (Tailwind-like `text-*`/`bg-*` classes), so text and controls remain readable in both light and dark.
+- If your host theme uses a root `.dark` / `.light` class (instead of `data-theme`), ASCII palette detection is supported out of the box.
 - This is not a full DOM-to-ASCII renderer.
 - It focuses on a scoped theme layer and simple ASCII widgets (stickers + terminal component hooks).
 - CSS is scoped to `:root[data-style="ascii"]` to avoid host-site breakage.
