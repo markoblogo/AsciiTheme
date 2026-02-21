@@ -19,7 +19,7 @@
     <main class="a-container a-stack a-gap-3">
       <section class="a-section a-split a-gap-3" id="base-landing-demo">
         <div class="a-stack a-gap-2">
-          <h1>Base preset landing demo</h1>
+          <h1 class="a-balance">Base preset landing demo</h1>
           <p class="a-prose a-muted">
             This page is composed with <code>base.css</code>, utility classes, and base components only.
             ASCII style is always on, and just the light/dark toggle is mounted.
@@ -34,7 +34,10 @@
           <h3>Quick check</h3>
           <blockquote>One stylesheet + a few utilities is enough for a full landing skeleton.</blockquote>
           <p class="a-muted">Try <kbd>Tab</kbd> to verify focus and <kbd>Enter</kbd> for button states.</p>
-          <button class="a-btn" type="button" aria-disabled="true">Disabled action</button>
+          <div class="a-cluster a-gap-2">
+            <button class="a-btn" type="button" aria-label="Open settings">⚙<span class="a-visually-hidden">Open settings</span></button>
+            <button class="a-btn" type="button" aria-disabled="true">Disabled action</button>
+          </div>
         </aside>
       </section>
 
