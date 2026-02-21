@@ -154,6 +154,7 @@ Live demo (GitHub Pages):
 https://markoblogo.github.io/AsciiTheme/
 
 - You can also see this theme in the wild on the AGENTS.md generator landing: https://agentsmd.abvx.xyz/
+- First-time setup: in GitHub repository settings, set **Pages -> Source** to **GitHub Actions** once, then rerun the Pages workflow.
 
 To build the package:
 
