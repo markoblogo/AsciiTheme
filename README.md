@@ -19,6 +19,8 @@ Quick demo from the Liqua landing: switching light/dark, then ASCII mode, and li
 
 ![Liqua landing ASCII theme demo](docs/assets/liqua-ascii-demo.gif)
 
+For a more detailed walkthrough of theme toggles across integrated sites, see the video demo: [https://youtu.be/VVQX7DtGHX0](https://youtu.be/VVQX7DtGHX0)
+
 `dist/` is committed to git for CDN convenience and reproducible release snapshots.
 
 ## Install
