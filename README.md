@@ -15,6 +15,10 @@ It provides:
 
 Runtime has no dependencies.
 
+Quick demo from the Liqua landing: switching light/dark, then ASCII mode, and light/dark inside ASCII.
+
+![Liqua landing ASCII theme demo](docs/assets/liqua-ascii-demo.gif)
+
 `dist/` is committed to git for CDN convenience and reproducible release snapshots.
 
 ## Install
