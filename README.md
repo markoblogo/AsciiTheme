@@ -15,6 +15,8 @@ It provides:
 
 Runtime has no dependencies.
 
+Listed on ABVX Lab: https://lab.abvx.xyz/
+
 Quick demo from the Liqua landing: switching light/dark, then ASCII mode, and light/dark inside ASCII.
 
 ![Liqua landing ASCII theme demo](docs/assets/liqua-ascii-demo.gif)
