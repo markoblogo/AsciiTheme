@@ -54,11 +54,12 @@ async function waitForServer(url, attempts = 60) {
 async function captureStates(outputDir) {
   mkdirSync(outputDir, { recursive: true });
   const browser = await chromium.launch();
+  const viewport = {
+    width: 1440,
+    height: 2200,
+  };
   const page = await browser.newPage({
-    viewport: {
-      width: 1440,
-      height: 2200,
-    },
+    viewport,
     colorScheme: "light",
   });
 
@@ -70,7 +71,12 @@ async function captureStates(outputDir) {
     await page.waitForTimeout(150);
     await page.screenshot({
       path: path.join(outputDir, `${state.id}.png`),
-      fullPage: true,
+      clip: {
+        x: 0,
+        y: 0,
+        width: viewport.width,
+        height: viewport.height,
+      },
     });
   }
 

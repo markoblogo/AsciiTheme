@@ -37,6 +37,8 @@ AsciiTheme now ships with an interactive adoption playground:
 - a sticker lab for `status-badge`, `progress`, `clock`, and `spinner`
 
 Playground runbook: [docs/playground.md](docs/playground.md)
+Release checklist: [docs/release-checklist.md](docs/release-checklist.md)
+Release surface runbook: [docs/release-surface.md](docs/release-surface.md)
 
 ![AsciiTheme playground overview](docs/assets/playground/playground-overview.gif)
 
@@ -139,6 +141,12 @@ import { AsciiThemeBoot, useAsciiTheme } from "@abvx/ascii-theme/react";
 ```ts
 import { useAsciiTheme } from "@abvx/ascii-theme/vue";
 ```
+
+Ready-to-copy wrapper examples:
+
+- [examples/react](examples/react)
+- [examples/vue](examples/vue)
+- [examples/web-component](examples/web-component)
 
 ### CDN
 

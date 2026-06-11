@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AsciiTheme Web Component Example</title>
+    <link rel="stylesheet" href="../../dist/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>AsciiTheme Web Component</h1>
+      <p>Drop the custom element into static HTML or CMS pages.</p>
+      <ascii-theme-toggle controls="both"></ascii-theme-toggle>
+      <ascii-theme-toggle controls="theme" theme="matrix"></ascii-theme-toggle>
+    </main>
+
+    <script type="module">
+      import { initAsciiTheme } from "../../dist/ascii-theme.es.js";
+      import "../../packages/web-component/dist/index.js";
+
+      initAsciiTheme({
+        managedMode: true,
+        defaultStyle: "default",
+        defaultTheme: "sepia",
+      });
+    </script>
+  </body>
+</html>
