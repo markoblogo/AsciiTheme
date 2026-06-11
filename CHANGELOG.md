@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 - 2026-06-11
+
+- Added theme registry APIs with built-in `light`, `dark`, `sepia`, and `matrix` themes.
+- Added sticker widget APIs with `progress`, `clock`, `status-badge`, and `spinner` presets.
+- Added subpath exports for React, Vue, and Web Component bindings.
+- Added publish-time verification for packed exports and fixture installation.
+- Added an interactive adoption playground, visual baselines, and release surface docs.
+
 ## 0.2.0 - 2026-02-21
 
 - Added SSR-safe `initAsciiTheme` guard for Next.js/SSR environments.

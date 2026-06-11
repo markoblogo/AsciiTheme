@@ -10,8 +10,10 @@
 AsciiTheme is a framework-agnostic micro-package that adds an ASCII visual layer to existing pages.
 It provides:
 - `data-style="default|ascii"` management
-- optional mode management (`light|dark`)
-- box-drawing sticker rendering for `[data-ascii-sticker]`
+- a theme registry with built-in `light`, `dark`, `sepia`, and `matrix`
+- optional mode management (`light|dark`) for backward compatibility
+- box-drawing stickers plus live widgets (`progress`, `clock`, `status-badge`, `spinner`)
+- adoption-layer exports for `@abvx/ascii-theme/web-component`, `/react`, and `/vue`
 
 Runtime has no dependencies.
 
@@ -25,6 +27,50 @@ For a more detailed walkthrough of theme toggles across integrated sites, see th
 
 `dist/` is committed to git for CDN convenience and reproducible release snapshots.
 
+## Playground
+
+AsciiTheme now ships with an interactive adoption playground:
+
+- live `default/ascii` switching
+- live `light/dark/sepia/matrix` switching
+- wrapper snippets for vanilla, Web Component, React, and Vue
+- a sticker lab for `status-badge`, `progress`, `clock`, and `spinner`
+
+Playground runbook: [docs/playground.md](docs/playground.md)
+Release checklist: [docs/release-checklist.md](docs/release-checklist.md)
+Release surface runbook: [docs/release-surface.md](docs/release-surface.md)
+
+![AsciiTheme playground overview](docs/assets/playground/playground-overview.gif)
+
+## Framework support
+
+| Surface | Status | Entry point | Notes |
+| --- | --- | --- | --- |
+| Vanilla / framework-agnostic | Stable | `@abvx/ascii-theme` | Full registry, stickers, injected toggles |
+| Web Component | Stable | `@abvx/ascii-theme/web-component` | Native `<ascii-theme-toggle>` |
+| React | Stable | `@abvx/ascii-theme/react` | `AsciiThemeBoot` + `useAsciiTheme()` |
+| Vue | Stable | `@abvx/ascii-theme/vue` | `createAsciiThemePlugin()` + `useAsciiTheme()` |
+| Base preset | Stable | `@abvx/ascii-theme/base.css` | ASCII-first sites |
+| Svelte | Planned | - | Not shipped yet |
+
+## Visual gallery
+
+Current visual baselines for the six supported theme/style states:
+
+| `default + light` | `default + dark` |
+| --- | --- |
+| ![default + light](docs/assets/playground/default-light.png) | ![default + dark](docs/assets/playground/default-dark.png) |
+
+| `ascii + light` | `ascii + dark` |
+| --- | --- |
+| ![ascii + light](docs/assets/playground/ascii-light.png) | ![ascii + dark](docs/assets/playground/ascii-dark.png) |
+
+| `ascii + sepia` | `ascii + matrix` |
+| --- | --- |
+| ![ascii + sepia](docs/assets/playground/ascii-sepia.png) | ![ascii + matrix](docs/assets/playground/ascii-matrix.png) |
+
+Release verification runbook: [docs/release-surface.md](docs/release-surface.md)
+
 ## Install
 
 ### npm
@@ -37,7 +83,9 @@ npm install @abvx/ascii-theme
 import { initAsciiTheme } from "@abvx/ascii-theme";
 import "@abvx/ascii-theme/style.css";
 
-initAsciiTheme();
+initAsciiTheme({
+  defaultTheme: "sepia",
+});
 ```
 
 ### Vite (React or vanilla)
@@ -62,22 +110,49 @@ Run init only on the client:
 ```tsx
 "use client";
 
-import { useEffect } from "react";
-import { initAsciiTheme } from "@abvx/ascii-theme";
+import { AsciiThemeBoot } from "@abvx/ascii-theme/react";
 
-export function AsciiThemeBoot() {
-  useEffect(() => {
-    initAsciiTheme();
-  }, []);
-  return null;
+export function AppAsciiTheme() {
+  return <AsciiThemeBoot options={{ defaultTheme: "matrix" }} />;
 }
 ```
+
+### Web Component
+
+```ts
+import "@abvx/ascii-theme/web-component";
+import { initAsciiTheme } from "@abvx/ascii-theme";
+import "@abvx/ascii-theme/style.css";
+
+initAsciiTheme({ managedMode: true, defaultTheme: "sepia" });
+```
+
+```html
+<ascii-theme-toggle controls="both"></ascii-theme-toggle>
+<ascii-theme-toggle controls="theme" theme="matrix"></ascii-theme-toggle>
+```
+
+### React / Vue wrappers
+
+```tsx
+import { AsciiThemeBoot, useAsciiTheme } from "@abvx/ascii-theme/react";
+```
+
+```ts
+import { useAsciiTheme } from "@abvx/ascii-theme/vue";
+```
+
+Ready-to-copy wrapper examples:
+
+- [examples/react](examples/react)
+- [examples/vue](examples/vue)
+- [examples/web-component](examples/web-component)
 
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/style.css" />
-<script src="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/style.css" />
+<script src="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/ascii-theme.umd.js"></script>
 <script>
   AsciiTheme.initAsciiTheme({ managedMode: false });
 </script>
@@ -129,6 +204,46 @@ document.getElementById("mode-btn")?.addEventListener("click", () => {
 ```
 
 Managed mode uses `data-ascii-mode="light|dark"` on `:root`.
+The new registry also writes `data-ascii-theme="<name>"`, so `sepia`, `matrix`, and custom themes work without breaking the legacy mode API.
+
+## Theme registry
+
+```ts
+import { registerTheme, setTheme } from "@abvx/ascii-theme";
+
+registerTheme("solarized", {
+  colorScheme: "dark",
+  ascii: {
+    bg: "#002b36",
+    fg: "#93a1a1",
+    muted: "#839496",
+  },
+});
+
+setTheme("solarized");
+```
+
+Built-in theme names:
+- `light`
+- `dark`
+- `sepia`
+- `matrix`
+
+## Sticker widgets
+
+```ts
+import { addSticker, updateSticker } from "@abvx/ascii-theme";
+
+addSticker({
+  id: "build-progress",
+  preset: "progress",
+  value: 60,
+  max: 100,
+  position: "top-right",
+});
+
+updateSticker("build-progress", { value: 80 });
+```
 
 ## Managed theme + injected toggles (for sites without light/dark)
 
@@ -274,8 +389,8 @@ export function AsciiThemeBoot() {
 CDN (pinned):
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/base.css" />
-<script src="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/base.css" />
+<script src="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/ascii-theme.umd.js"></script>
 <script>
   AsciiTheme.initAsciiTheme({
     base: true,
@@ -292,8 +407,8 @@ CDN (pinned):
 Base preset is ASCII-only by design, so there is no style toggle in this mode. Keep the light/dark toggle enabled.
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/base.css" />
-<script src="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/base.css" />
+<script src="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/ascii-theme.umd.js"></script>
 
 <header class="a-container a-section a-cluster a-between">
   <strong>ASCII Landing</strong>
@@ -405,12 +520,29 @@ Light/dark mapping in managed mode is applied via:
 ## Public API
 
 - `initAsciiTheme(options?)` (`base: true` enables ASCII-only base preset)
+- `AsciiTheme` controller facade
 - `setAsciiStyle(style: "default" | "ascii")`
 - `toggleAsciiStyle()`
 - `getAsciiStyle(): "default" | "ascii"`
 - `setAsciiMode(mode: "light" | "dark")`
 - `toggleAsciiMode()`
+- `getAsciiMode(): "light" | "dark"`
+- `setTheme(theme: ThemeName)`
+- `getTheme(): ThemeName`
+- `registerTheme(name, definition)`
+- `getThemes()`
+- `getAsciiThemeState()`
+- `subscribeAsciiTheme(listener)`
 - `renderAsciiStickers(root?: ParentNode)`
+- `addSticker(config)`
+- `updateSticker(id, patch)`
+- `removeSticker(id)`
+
+Subpath exports:
+- `@abvx/ascii-theme/stickers`
+- `@abvx/ascii-theme/web-component`
+- `@abvx/ascii-theme/react`
+- `@abvx/ascii-theme/vue`
 
 ## Notes / limitations
 
@@ -447,6 +579,13 @@ To build the package:
 npm run build
 ```
 
+To verify adoption and packaging:
+
+```bash
+npm run verify:integration
+npm run verify:package
+```
+
 ## Release checklist (v0.1.0)
 
 Before tagging:
@@ -455,6 +594,8 @@ Before tagging:
 git status --short
 npm ci
 npm run build
+npm run verify:integration
+npm run verify:package
 npm run demo:build
 ```
 

@@ -1,11 +1,22 @@
 import { defineConfig } from "vite";
 import { resolve } from "node:path";
 
+const localAliases = {
+  "@abvx/ascii-theme": resolve(__dirname, "src/index.ts"),
+  "@abvx/ascii-theme/stickers": resolve(__dirname, "src/stickers.ts"),
+  "@abvx/ascii-theme/react": resolve(__dirname, "packages/react/src/index.ts"),
+  "@abvx/ascii-theme/vue": resolve(__dirname, "packages/vue/src/index.ts"),
+  "@abvx/ascii-theme/web-component": resolve(__dirname, "packages/web-component/src/index.ts"),
+};
+
 export default defineConfig(({ mode }) => {
   if (mode === "demo") {
     return {
       root: "demo",
       base: "/AsciiTheme/",
+      resolve: {
+        alias: localAliases,
+      },
       build: {
         outDir: "../demo-dist",
         emptyOutDir: true,
@@ -20,6 +31,9 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
+    resolve: {
+      alias: localAliases,
+    },
     build: {
       outDir: "dist",
       emptyOutDir: false,

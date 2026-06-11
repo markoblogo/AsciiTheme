@@ -3,53 +3,225 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AsciiTheme Demo</title>
+    <title>AsciiTheme Playground</title>
     <link rel="stylesheet" href="/demo.css" />
     <link rel="stylesheet" href="../src/style.css" />
   </head>
   <body>
-    <header class="demo-topbar" data-ascii-role="nav">
-      <strong>AsciiTheme overlay demo</strong>
-      <nav class="demo-links">
-        <a href="/">Overlay</a>
-        <a href="/base.html">Base preset</a>
-      </nav>
-      <div class="demo-actions" id="demo-toggle-mount"></div>
+    <header class="demo-shell">
+      <div class="demo-topbar" data-ascii-role="nav">
+        <div class="demo-brand">
+          <span class="demo-mark">AsciiTheme</span>
+          <span class="demo-version">playground</span>
+        </div>
+        <nav class="demo-links">
+          <a href="/">Playground</a>
+          <a href="/base.html">Base preset</a>
+          <a href="https://github.com/markoblogo/AsciiTheme">GitHub</a>
+        </nav>
+        <div class="demo-actions" id="demo-toggle-mount"></div>
+      </div>
     </header>
 
-    <main class="demo-main">
-      <section class="demo-grid">
-        <article class="demo-card" data-ascii-role="card">
-          <h3>Style toggle</h3>
-          <p>Injected controls switch <code>data-style</code> between <code>default</code> and <code>ascii</code>.</p>
-          <a href="#" data-ascii-role="cta">Primary action</a>
-        </article>
+    <main class="demo-shell demo-main">
+      <section class="demo-hero">
+        <div class="demo-hero-copy">
+          <p class="demo-kicker">Framework-agnostic terminal design lab</p>
+          <h1>Switch themes live, test adoption paths, and smoke-check stickers in one surface.</h1>
+          <p class="demo-lead">
+            This playground exercises the new registry, wrappers, Web Component, shortcuts, and widget presets
+            without leaving the browser.
+          </p>
+          <div class="demo-hero-actions">
+            <button type="button" class="demo-pill demo-pill--primary" data-style-target="ascii">Enter ASCII</button>
+            <button type="button" class="demo-pill" data-style-target="default">Host style</button>
+            <button type="button" class="demo-pill" id="demo-shortcut-trigger">Simulate Alt+T</button>
+          </div>
+        </div>
 
-        <article class="demo-card" data-ascii-role="card">
-          <h3>Managed mode</h3>
-          <p>This demo runs with <code>managedMode: true</code>, so the plugin controls <code>data-ascii-mode</code> and injects sun/moon + ASCII toggles.</p>
-          <a href="#" data-ascii-role="cta-secondary">Secondary action</a>
-        </article>
-
-        <article class="demo-card" data-ascii-role="card">
-          <h3>Stickers</h3>
-          <div data-ascii-sticker="NEW RELEASE"></div>
-          <div data-ascii-sticker="NOW: PR Guard + LLMO Pack"></div>
-        </article>
+        <aside class="demo-stateboard" data-ascii-role="card">
+          <div class="demo-stateboard-head">
+            <strong>Live state</strong>
+            <span class="demo-footnote">manual smoke surface</span>
+          </div>
+          <dl class="demo-stategrid">
+            <div>
+              <dt>Style</dt>
+              <dd id="state-style">default</dd>
+            </div>
+            <div>
+              <dt>Theme</dt>
+              <dd id="state-theme">sepia</dd>
+            </div>
+            <div>
+              <dt>Mode</dt>
+              <dd id="state-mode">light</dd>
+            </div>
+            <div>
+              <dt>Shortcut</dt>
+              <dd>Alt+T</dd>
+            </div>
+          </dl>
+          <div class="demo-state-attrs">
+            <span class="demo-attr" id="state-attr-style">data-style="default"</span>
+            <span class="demo-attr" id="state-attr-theme">data-ascii-theme="sepia"</span>
+          </div>
+        </aside>
       </section>
 
-      <section class="demo-snippet" data-ascii-role="card">
-        <h3>CDN integration snippet</h3>
-        <pre><code>&lt;link rel="stylesheet" href="https://unpkg.com/@markoblogo/ascii-theme/dist/style.css" /&gt;
-&lt;script src="https://unpkg.com/@markoblogo/ascii-theme/dist/ascii-theme.umd.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-  AsciiTheme.initAsciiTheme({ managedMode: false });
-&lt;/script&gt;</code></pre>
+      <section class="demo-rail">
+        <div class="demo-control-block">
+          <p class="demo-block-label">Registry themes</p>
+          <div class="demo-chip-row" id="theme-controls">
+            <button type="button" class="demo-chip" data-theme-target="light">Light</button>
+            <button type="button" class="demo-chip" data-theme-target="dark">Dark</button>
+            <button type="button" class="demo-chip" data-theme-target="sepia">Sepia</button>
+            <button type="button" class="demo-chip" data-theme-target="matrix">Matrix</button>
+          </div>
+        </div>
+        <div class="demo-control-block">
+          <p class="demo-block-label">Adoption primitive</p>
+          <ascii-theme-toggle controls="both" mount="self"></ascii-theme-toggle>
+        </div>
+        <div class="demo-control-block">
+          <p class="demo-block-label">Pinned theme preset</p>
+          <ascii-theme-toggle controls="theme" theme="matrix" mount="self"></ascii-theme-toggle>
+        </div>
+      </section>
+
+      <section class="demo-preview">
+        <div class="demo-preview-shell">
+          <div class="demo-preview-topline">
+            <span class="demo-dot"></span>
+            <span class="demo-dot"></span>
+            <span class="demo-dot"></span>
+            <span class="demo-preview-title">registry-preview.tsx</span>
+          </div>
+
+          <div class="demo-preview-grid">
+            <section class="demo-scene">
+              <div class="demo-scene-copy">
+                <p class="demo-kicker">Theme-aware hero surface</p>
+                <h2 id="preview-title">Sepia ships calm docs-first pages.</h2>
+                <p id="preview-copy">
+                  Switch between light, dark, sepia, and matrix to inspect palette tokens, button contrast, and
+                  sticker readability before publishing.
+                </p>
+                <div class="demo-scene-actions">
+                  <a href="#" data-ascii-role="cta">Launch integration</a>
+                  <a href="#" data-ascii-role="cta-secondary">Read adoption docs</a>
+                </div>
+              </div>
+
+              <div class="demo-scene-stack">
+                <div class="demo-meter" data-ascii-role="card">
+                  <div class="demo-meter-head">
+                    <strong>Manual verification</strong>
+                    <span>6 states</span>
+                  </div>
+                  <div class="demo-meter-track">
+                    <span class="demo-meter-fill" id="demo-meter-fill"></span>
+                  </div>
+                  <p class="demo-footnote" id="demo-meter-label">default + sepia</p>
+                </div>
+                <div class="demo-preview-sticker-slot" id="demo-inline-sticker-slot"></div>
+              </div>
+            </section>
+
+            <aside class="demo-notes" data-ascii-role="card">
+              <h3>Surface checks</h3>
+              <ul>
+                <li>Buttons stay readable in host and ASCII styles.</li>
+                <li>Theme registry keeps `data-ascii-theme` in sync.</li>
+                <li>Live widgets use the same palette contract as content.</li>
+              </ul>
+              <div class="demo-note-strip">
+                <span class="demo-mini-tag">Web Component</span>
+                <span class="demo-mini-tag">React</span>
+                <span class="demo-mini-tag">Vue</span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-adoption">
+        <div class="demo-section-head">
+          <div>
+            <p class="demo-kicker">Adoption paths</p>
+            <h2>One playground, three entry points.</h2>
+          </div>
+          <div class="demo-tab-row" id="snippet-tabs">
+            <button type="button" class="demo-tab" data-snippet="vanilla">Vanilla</button>
+            <button type="button" class="demo-tab" data-snippet="web-component">Web Component</button>
+            <button type="button" class="demo-tab" data-snippet="react">React</button>
+            <button type="button" class="demo-tab" data-snippet="vue">Vue</button>
+          </div>
+        </div>
+
+        <div class="demo-adoption-grid">
+          <div class="demo-adoption-copy">
+            <p id="snippet-summary" class="demo-lead"></p>
+            <div class="demo-proof-grid">
+              <article>
+                <strong>Core registry</strong>
+                <p>Use `setTheme`, `registerTheme`, and `subscribeAsciiTheme` directly.</p>
+              </article>
+              <article>
+                <strong>Native primitive</strong>
+                <p>`&lt;ascii-theme-toggle&gt;` works without a framework wrapper.</p>
+              </article>
+              <article>
+                <strong>Framework sync</strong>
+                <p>React and Vue wrappers stay aligned with the singleton state.</p>
+              </article>
+            </div>
+          </div>
+          <div class="demo-codepanel" data-ascii-role="card">
+            <div class="demo-codepanel-head">
+              <strong id="snippet-title">Vanilla</strong>
+              <span class="demo-footnote">copy/paste-ready</span>
+            </div>
+            <pre><code id="snippet-code"></code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-stickerlab">
+        <div class="demo-section-head">
+          <div>
+            <p class="demo-kicker">Sticker lab</p>
+            <h2>Run widget presets as a manual smoke test.</h2>
+          </div>
+          <div class="demo-chip-row" id="sticker-controls">
+            <button type="button" class="demo-chip" data-sticker-preset="status-badge">Status badge</button>
+            <button type="button" class="demo-chip" data-sticker-preset="progress">Progress</button>
+            <button type="button" class="demo-chip" data-sticker-preset="clock">Clock</button>
+            <button type="button" class="demo-chip" data-sticker-preset="spinner">Spinner</button>
+          </div>
+        </div>
+
+        <div class="demo-sticker-grid">
+          <article class="demo-sticker-panel" data-ascii-role="card">
+            <h3>Mounted widget</h3>
+            <div id="demo-widget-slot" class="demo-widget-slot"></div>
+          </article>
+          <article class="demo-sticker-panel" data-ascii-role="card">
+            <h3>Legacy markup sticker</h3>
+            <div data-ascii-sticker="NEW RELEASE"></div>
+            <div data-ascii-sticker="ASCII LAB ONLINE"></div>
+          </article>
+          <article class="demo-sticker-panel" data-ascii-role="card">
+            <h3>Preset notes</h3>
+            <p id="sticker-summary">Status badge is ideal for release, environment, or deployment state.</p>
+          </article>
+        </div>
       </section>
     </main>
 
-    <footer class="demo-footer ascii-footnote">
-      Overlay demo. For ASCII-only site scaffolding, open the base preset demo.
+    <footer class="demo-shell demo-footer ascii-footnote">
+      Playground demo for theme registry, wrappers, and sticker verification. Open the base preset demo for
+      ASCII-first scaffolding.
     </footer>
 
     <script type="module" src="/demo.js"></script>

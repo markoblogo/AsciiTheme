@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "../..",
+    "rootDir": "src",
+    "outDir": "dist",
+    "emitDeclarationOnly": true,
+    "paths": {
+      "@abvx/ascii-theme": ["dist/index.d.ts"]
+    }
+  },
+  "include": ["src"]
+}
