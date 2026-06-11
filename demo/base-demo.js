@@ -4,8 +4,10 @@ initAsciiTheme({
   base: true,
   managedMode: true,
   defaultMode: "light",
+  defaultTheme: "matrix",
   addThemeToggle: true,
   addStyleToggle: false,
   mountSelector: "#base-toggle-mount",
   mountPlacement: "append",
+  keyboardShortcut: "Alt+T",
 });

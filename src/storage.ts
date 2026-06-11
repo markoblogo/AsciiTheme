@@ -1,6 +1,7 @@
 export type PersistedState = {
   style?: "default" | "ascii";
   mode?: "light" | "dark";
+  theme?: string;
 };
 
 export function readState(storageKey: string): PersistedState {
@@ -17,6 +18,7 @@ export function readState(storageKey: string): PersistedState {
     return {
       style: obj.style === "ascii" ? "ascii" : obj.style === "default" ? "default" : undefined,
       mode: obj.mode === "dark" ? "dark" : obj.mode === "light" ? "light" : undefined,
+      theme: typeof obj.theme === "string" ? obj.theme : undefined,
     };
   } catch {
     return {};

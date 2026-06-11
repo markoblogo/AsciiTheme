@@ -10,8 +10,10 @@
 AsciiTheme is a framework-agnostic micro-package that adds an ASCII visual layer to existing pages.
 It provides:
 - `data-style="default|ascii"` management
-- optional mode management (`light|dark`)
-- box-drawing sticker rendering for `[data-ascii-sticker]`
+- a theme registry with built-in `light`, `dark`, `sepia`, and `matrix`
+- optional mode management (`light|dark`) for backward compatibility
+- box-drawing stickers plus live widgets (`progress`, `clock`, `status-badge`, `spinner`)
+- adoption-layer exports for `@abvx/ascii-theme/web-component`, `/react`, and `/vue`
 
 Runtime has no dependencies.
 
@@ -37,7 +39,9 @@ npm install @abvx/ascii-theme
 import { initAsciiTheme } from "@abvx/ascii-theme";
 import "@abvx/ascii-theme/style.css";
 
-initAsciiTheme();
+initAsciiTheme({
+  defaultTheme: "sepia",
+});
 ```
 
 ### Vite (React or vanilla)
@@ -62,15 +66,36 @@ Run init only on the client:
 ```tsx
 "use client";
 
-import { useEffect } from "react";
-import { initAsciiTheme } from "@abvx/ascii-theme";
+import { AsciiThemeBoot } from "@abvx/ascii-theme/react";
 
-export function AsciiThemeBoot() {
-  useEffect(() => {
-    initAsciiTheme();
-  }, []);
-  return null;
+export function AppAsciiTheme() {
+  return <AsciiThemeBoot options={{ defaultTheme: "matrix" }} />;
 }
+```
+
+### Web Component
+
+```ts
+import "@abvx/ascii-theme/web-component";
+import { initAsciiTheme } from "@abvx/ascii-theme";
+import "@abvx/ascii-theme/style.css";
+
+initAsciiTheme({ managedMode: true, defaultTheme: "sepia" });
+```
+
+```html
+<ascii-theme-toggle controls="both"></ascii-theme-toggle>
+<ascii-theme-toggle controls="theme" theme="matrix"></ascii-theme-toggle>
+```
+
+### React / Vue wrappers
+
+```tsx
+import { AsciiThemeBoot, useAsciiTheme } from "@abvx/ascii-theme/react";
+```
+
+```ts
+import { useAsciiTheme } from "@abvx/ascii-theme/vue";
 ```
 
 ### CDN
@@ -129,6 +154,46 @@ document.getElementById("mode-btn")?.addEventListener("click", () => {
 ```
 
 Managed mode uses `data-ascii-mode="light|dark"` on `:root`.
+The new registry also writes `data-ascii-theme="<name>"`, so `sepia`, `matrix`, and custom themes work without breaking the legacy mode API.
+
+## Theme registry
+
+```ts
+import { registerTheme, setTheme } from "@abvx/ascii-theme";
+
+registerTheme("solarized", {
+  colorScheme: "dark",
+  ascii: {
+    bg: "#002b36",
+    fg: "#93a1a1",
+    muted: "#839496",
+  },
+});
+
+setTheme("solarized");
+```
+
+Built-in theme names:
+- `light`
+- `dark`
+- `sepia`
+- `matrix`
+
+## Sticker widgets
+
+```ts
+import { addSticker, updateSticker } from "@abvx/ascii-theme";
+
+addSticker({
+  id: "build-progress",
+  preset: "progress",
+  value: 60,
+  max: 100,
+  position: "top-right",
+});
+
+updateSticker("build-progress", { value: 80 });
+```
 
 ## Managed theme + injected toggles (for sites without light/dark)
 
@@ -405,12 +470,29 @@ Light/dark mapping in managed mode is applied via:
 ## Public API
 
 - `initAsciiTheme(options?)` (`base: true` enables ASCII-only base preset)
+- `AsciiTheme` controller facade
 - `setAsciiStyle(style: "default" | "ascii")`
 - `toggleAsciiStyle()`
 - `getAsciiStyle(): "default" | "ascii"`
 - `setAsciiMode(mode: "light" | "dark")`
 - `toggleAsciiMode()`
+- `getAsciiMode(): "light" | "dark"`
+- `setTheme(theme: ThemeName)`
+- `getTheme(): ThemeName`
+- `registerTheme(name, definition)`
+- `getThemes()`
+- `getAsciiThemeState()`
+- `subscribeAsciiTheme(listener)`
 - `renderAsciiStickers(root?: ParentNode)`
+- `addSticker(config)`
+- `updateSticker(id, patch)`
+- `removeSticker(id)`
+
+Subpath exports:
+- `@abvx/ascii-theme/stickers`
+- `@abvx/ascii-theme/web-component`
+- `@abvx/ascii-theme/react`
+- `@abvx/ascii-theme/vue`
 
 ## Notes / limitations
 
@@ -447,6 +529,13 @@ To build the package:
 npm run build
 ```
 
+To verify adoption and packaging:
+
+```bash
+npm run verify:integration
+npm run verify:package
+```
+
 ## Release checklist (v0.1.0)
 
 Before tagging:
@@ -455,6 +544,8 @@ Before tagging:
 git status --short
 npm ci
 npm run build
+npm run verify:integration
+npm run verify:package
 npm run demo:build
 ```
 

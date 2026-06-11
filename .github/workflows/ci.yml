@@ -23,8 +23,11 @@ jobs:
       - name: Build package
         run: npm run build
 
+      - name: Verify integration
+        run: npm run verify:integration
+
+      - name: Verify packed entrypoints
+        run: npm run verify:package
+
       - name: Build demo
         run: npm run demo:build
-
-      - name: Pack smoke test
-        run: npm pack
