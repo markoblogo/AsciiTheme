@@ -26,6 +26,9 @@ jobs:
       - name: Verify integration
         run: npm run verify:integration
 
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
       - name: Verify visual baselines
         run: npm run verify:visual
 
