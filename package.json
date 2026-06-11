@@ -85,7 +85,7 @@
     "docs:capture": "node scripts/visual-regression.mjs --update",
     "verify:integration": "vitest run tests/integration-smoke.test.ts tests/web-component.test.ts tests/core.test.ts tests/stickers.test.ts tests/react.test.tsx tests/vue.test.ts",
     "verify:package": "node scripts/verify-package.mjs",
-    "verify:visual": "node scripts/visual-regression.mjs"
+    "verify:visual": "npm run demo:build && node scripts/visual-regression.mjs"
   },
   "keywords": [
     "ascii",
