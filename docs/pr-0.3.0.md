@@ -2,13 +2,14 @@
 
 ## Summary
 
-This PR evolves AsciiTheme from a basic ASCII overlay package into a more publish-ready adoption surface:
+This PR prepares the `0.3.0` release and evolves AsciiTheme from a basic ASCII overlay package into a publish-ready adoption surface:
 
 - theme registry with `light`, `dark`, `sepia`, and `matrix`
 - sticker widget system with live presets
 - React, Vue, and Web Component bindings
 - interactive playground for manual adoption checks
 - package verification, integration verification, and visual regression baselines
+- release docs, examples, and visual assets for the new surface
 
 ## Verification
 
@@ -36,3 +37,4 @@ This PR evolves AsciiTheme from a basic ASCII overlay package into a more publis
 - Root package exports and tarball verification are now checked in CI
 - Demo evolved from a simple showcase into a stateful playground
 - Release surface is now documented through dedicated runbooks and checklists
+- Wrapper-specific examples now live under `examples/` for copy-paste adoption

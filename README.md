@@ -151,8 +151,8 @@ Ready-to-copy wrapper examples:
 ### CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/style.css" />
-<script src="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/style.css" />
+<script src="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/ascii-theme.umd.js"></script>
 <script>
   AsciiTheme.initAsciiTheme({ managedMode: false });
 </script>
@@ -389,8 +389,8 @@ export function AsciiThemeBoot() {
 CDN (pinned):
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/base.css" />
-<script src="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/base.css" />
+<script src="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/ascii-theme.umd.js"></script>
 <script>
   AsciiTheme.initAsciiTheme({
     base: true,
@@ -407,8 +407,8 @@ CDN (pinned):
 Base preset is ASCII-only by design, so there is no style toggle in this mode. Keep the light/dark toggle enabled.
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/base.css" />
-<script src="https://unpkg.com/@abvx/ascii-theme@0.2.0/dist/ascii-theme.umd.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/base.css" />
+<script src="https://unpkg.com/@abvx/ascii-theme@0.3.0/dist/ascii-theme.umd.js"></script>
 
 <header class="a-container a-section a-cluster a-between">
   <strong>ASCII Landing</strong>
