@@ -16,6 +16,7 @@ const gifPath = path.join(baselineDir, "playground-overview.gif");
 const tempDir = mkdtempSync(path.join(os.tmpdir(), "ascii-theme-visual-"));
 const mode = process.argv.includes("--update") ? "update" : "check";
 const port = 4173;
+const demoBasePath = "/AsciiTheme/";
 
 const states = [
   { id: "default-light", style: "default", theme: "light" },
@@ -63,7 +64,7 @@ async function captureStates(outputDir) {
     colorScheme: "light",
   });
 
-  await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: "networkidle" });
+  await page.goto(`http://127.0.0.1:${port}${demoBasePath}`, { waitUntil: "networkidle" });
   await page.evaluate(() => {
     document.documentElement.setAttribute("data-ascii-transitions", "off");
   });
@@ -169,7 +170,7 @@ async function buildGif() {
 const preview = startPreview();
 
 try {
-  await waitForServer(`http://127.0.0.1:${port}/`);
+  await waitForServer(`http://127.0.0.1:${port}${demoBasePath}`);
 
   if (mode === "update") {
     await captureStates(baselineDir);
