@@ -64,11 +64,21 @@ async function captureStates(outputDir) {
   });
 
   await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: "networkidle" });
+  await page.evaluate(() => {
+    document.documentElement.setAttribute("data-ascii-transitions", "off");
+  });
 
   for (const state of states) {
     await page.click(`[data-style-target="${state.style}"]`);
     await page.click(`[data-theme-target="${state.theme}"]`);
-    await page.waitForTimeout(150);
+    await page.evaluate(() => {
+      const active = document.activeElement;
+      if (active instanceof HTMLElement) {
+        active.blur();
+      }
+    });
+    await page.mouse.move(4, 4);
+    await page.waitForTimeout(220);
     await page.screenshot({
       path: path.join(outputDir, `${state.id}.png`),
       clip: {
