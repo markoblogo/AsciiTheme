@@ -82,8 +82,10 @@
     "build": "npm run build:types && vite build && cp src/base.css dist/base.css && npm run build:modules",
     "preview": "npm run demo:preview",
     "test": "vitest run",
+    "docs:capture": "node scripts/visual-regression.mjs --update",
     "verify:integration": "vitest run tests/integration-smoke.test.ts tests/web-component.test.ts tests/core.test.ts tests/stickers.test.ts tests/react.test.tsx tests/vue.test.ts",
-    "verify:package": "node scripts/verify-package.mjs"
+    "verify:package": "node scripts/verify-package.mjs",
+    "verify:visual": "node scripts/visual-regression.mjs"
   },
   "keywords": [
     "ascii",
@@ -115,6 +117,9 @@
     "@types/react-dom": "^19.1.6",
     "esbuild": "^0.25.5",
     "jsdom": "^26.1.0",
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.60.0",
+    "pngjs": "^7.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "typescript": "^5.7.3",

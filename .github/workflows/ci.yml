@@ -26,6 +26,9 @@ jobs:
       - name: Verify integration
         run: npm run verify:integration
 
+      - name: Verify visual baselines
+        run: npm run verify:visual
+
       - name: Verify packed entrypoints
         run: npm run verify:package
 

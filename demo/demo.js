@@ -233,9 +233,6 @@ function bindControls() {
   document.querySelectorAll("[data-theme-target]").forEach((button) => {
     button.addEventListener("click", () => {
       setTheme(button.getAttribute("data-theme-target"));
-      if (button.getAttribute("data-theme-target") === "dark" || button.getAttribute("data-theme-target") === "matrix") {
-        setAsciiStyle("ascii");
-      }
     });
   });
 

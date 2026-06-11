@@ -27,6 +27,48 @@ For a more detailed walkthrough of theme toggles across integrated sites, see th
 
 `dist/` is committed to git for CDN convenience and reproducible release snapshots.
 
+## Playground
+
+AsciiTheme now ships with an interactive adoption playground:
+
+- live `default/ascii` switching
+- live `light/dark/sepia/matrix` switching
+- wrapper snippets for vanilla, Web Component, React, and Vue
+- a sticker lab for `status-badge`, `progress`, `clock`, and `spinner`
+
+Playground runbook: [docs/playground.md](docs/playground.md)
+
+![AsciiTheme playground overview](docs/assets/playground/playground-overview.gif)
+
+## Framework support
+
+| Surface | Status | Entry point | Notes |
+| --- | --- | --- | --- |
+| Vanilla / framework-agnostic | Stable | `@abvx/ascii-theme` | Full registry, stickers, injected toggles |
+| Web Component | Stable | `@abvx/ascii-theme/web-component` | Native `<ascii-theme-toggle>` |
+| React | Stable | `@abvx/ascii-theme/react` | `AsciiThemeBoot` + `useAsciiTheme()` |
+| Vue | Stable | `@abvx/ascii-theme/vue` | `createAsciiThemePlugin()` + `useAsciiTheme()` |
+| Base preset | Stable | `@abvx/ascii-theme/base.css` | ASCII-first sites |
+| Svelte | Planned | - | Not shipped yet |
+
+## Visual gallery
+
+Current visual baselines for the six supported theme/style states:
+
+| `default + light` | `default + dark` |
+| --- | --- |
+| ![default + light](docs/assets/playground/default-light.png) | ![default + dark](docs/assets/playground/default-dark.png) |
+
+| `ascii + light` | `ascii + dark` |
+| --- | --- |
+| ![ascii + light](docs/assets/playground/ascii-light.png) | ![ascii + dark](docs/assets/playground/ascii-dark.png) |
+
+| `ascii + sepia` | `ascii + matrix` |
+| --- | --- |
+| ![ascii + sepia](docs/assets/playground/ascii-sepia.png) | ![ascii + matrix](docs/assets/playground/ascii-matrix.png) |
+
+Release verification runbook: [docs/release-surface.md](docs/release-surface.md)
+
 ## Install
 
 ### npm
