@@ -19,6 +19,12 @@ Runtime has no dependencies.
 
 Listed on ABVX Lab: https://lab.abvx.xyz/
 
+## Related projects
+
+- `lab.abvx` is the public hub where AsciiTheme is cataloged: https://github.com/markoblogo/lab.abvx
+- `AGENTS.md_generator`, `SET`, and `abvx-agent-skills` are part of the adjacent AI coding tools stack: https://github.com/markoblogo/AGENTS.md_generator
+- `sitelen-layer-plugin` is a related frontend package in a different product cluster: https://github.com/markoblogo/sitelen-layer-plugin
+
 Quick demo from the Liqua landing: switching light/dark, then ASCII mode, and light/dark inside ASCII.
 
 ![Liqua landing ASCII theme demo](docs/assets/liqua-ascii-demo.gif)
