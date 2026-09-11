@@ -4,11 +4,11 @@ Use this checklist before tagging or publishing a release.
 
 ## Package surface
 
-Run:
+Run the complete release gate:
 
 ```bash
-npm run build
-npm run verify:package
+npm ci
+npm run check
 ```
 
 This validates:
@@ -19,12 +19,15 @@ This validates:
 - tarball contents after `npm pack`;
 - real `import` and `require` checks in a clean fixture project.
 
-## Integration surface
+## Individual surfaces
 
 Run:
 
 ```bash
 npm run verify:integration
+npm run verify:package
+npm run demo:build
+npm audit --audit-level=high
 ```
 
 This validates:

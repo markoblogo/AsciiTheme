@@ -1,0 +1,27 @@
+name: Bug report
+description: Report reproducible incorrect behavior
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: Reproduction
+      description: Provide a minimal project, code sample, or steps.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: AsciiTheme version
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Browser and framework
+  - type: textarea
+    attributes:
+      label: Additional context
