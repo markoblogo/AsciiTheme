@@ -5,9 +5,9 @@ export declare function useAsciiTheme(): {
     setTheme: typeof setTheme;
     setMode: typeof setAsciiMode;
     toggleMode: typeof toggleAsciiMode;
-    style: import("dist/types").AsciiStyle;
-    theme: import("dist/types").ThemeName;
-    mode: import("dist/types").AsciiMode;
+    style: import("@abvx/ascii-theme").AsciiStyle;
+    theme: import("@abvx/ascii-theme").ThemeName;
+    mode: import("@abvx/ascii-theme").AsciiMode;
     managedMode: boolean;
     base: boolean;
 };

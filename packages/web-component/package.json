@@ -1,6 +1,7 @@
 {
   "name": "@abvx/ascii-theme-web-component",
-  "version": "0.3.0",
+  "version": "0.3.1",
+  "private": true,
   "description": "Web Component bindings for @abvx/ascii-theme.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -18,7 +19,7 @@
     }
   },
   "peerDependencies": {
-    "@abvx/ascii-theme": "^0.3.0"
+    "@abvx/ascii-theme": "^0.3.1"
   },
   "sideEffects": true,
   "license": "MIT"

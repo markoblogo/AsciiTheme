@@ -1,7 +1,7 @@
 {
   "name": "@abvx/ascii-theme",
-  "version": "0.3.0",
-  "description": "Framework-agnostic ASCII theme layer with style/theme toggles, theme registry, and ASCII sticker widgets.",
+  "version": "0.3.1",
+  "description": "Drop-in ASCII theme layer for Vanilla, React, Vue, and Web Components.",
   "homepage": "https://github.com/markoblogo/AsciiTheme#readme",
   "repository": {
     "type": "git",
@@ -23,9 +23,6 @@
   "engines": {
     "node": ">=18"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -85,7 +82,9 @@
     "docs:capture": "node scripts/visual-regression.mjs --update",
     "verify:integration": "vitest run tests/integration-smoke.test.ts tests/web-component.test.ts tests/core.test.ts tests/stickers.test.ts tests/react.test.tsx tests/vue.test.ts",
     "verify:package": "node scripts/verify-package.mjs",
-    "verify:visual": "npm run demo:build && node scripts/visual-regression.mjs"
+    "verify:visual": "npm run demo:build && node scripts/visual-regression.mjs",
+    "check": "npm run verify:integration && npm run verify:package && npm run demo:build && npm audit --audit-level=high",
+    "prepublishOnly": "npm run check"
   },
   "keywords": [
     "ascii",
@@ -97,7 +96,10 @@
     "theme-toggle",
     "dark-mode",
     "terminal-ui",
-    "framework-agnostic"
+    "framework-agnostic",
+    "react",
+    "vue",
+    "web-components"
   ],
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
@@ -113,18 +115,18 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "esbuild": "^0.25.5",
-    "jsdom": "^26.1.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "esbuild": "^0.28.2",
+    "jsdom": "^27.4.0",
     "pixelmatch": "^7.2.0",
-    "playwright": "^1.60.0",
+    "playwright": "^1.63.0",
     "pngjs": "^7.0.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "typescript": "^5.7.3",
-    "vite": "^6.1.0",
-    "vitest": "^2.1.8",
-    "vue": "^3.5.13"
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "typescript": "^6.0.3",
+    "vite": "^7.3.6",
+    "vitest": "^4.1.11",
+    "vue": "^3.5.42"
   }
 }

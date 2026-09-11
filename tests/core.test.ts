@@ -6,6 +6,7 @@ import {
   getTheme,
   initAsciiTheme,
   registerTheme,
+  setAsciiStyle,
   setTheme,
   toggleAsciiMode,
 } from "../src/core";
@@ -45,5 +46,24 @@ describe("core theme registry", () => {
     setTheme("solarized");
     expect(getTheme()).toBe("solarized");
     expect(localStorage.getItem("ascii_theme_v1")).toContain("solarized");
+  });
+
+  it("restores a saved style on initialization", () => {
+    initAsciiTheme({ defaultStyle: "default" });
+    setAsciiStyle("ascii");
+
+    initAsciiTheme({ defaultStyle: "default" });
+
+    expect(getAsciiStyle()).toBe("ascii");
+  });
+
+  it("removes injected controls when a later initialization disables them", () => {
+    document.body.innerHTML = '<div id="controls"></div>';
+    initAsciiTheme({ addStyleToggle: true, mountSelector: "#controls" });
+    expect(document.querySelector("[data-ascii-controls]")).not.toBeNull();
+
+    initAsciiTheme();
+
+    expect(document.querySelector("[data-ascii-controls]")).toBeNull();
   });
 });

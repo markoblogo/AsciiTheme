@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.1 - 2026-09-11
+
+- Fixed clean installs by aligning the repository with the package's single-package, subpath-export distribution model.
+- Fixed style persistence and stale injected controls across repeated initialization.
+- Updated the development toolchain and removed all known npm audit findings.
+- Added one-command release verification, hardened CI and Pages workflows, and added automated release publishing.
+- Reworked the README around adoption paths, live examples, accessibility, and current release instructions.
+- Added contribution, security, dependency-update, and issue-reporting guidance.
+
 ## 0.3.0 - 2026-06-11
 
 - Added theme registry APIs with built-in `light`, `dark`, `sepia`, and `matrix` themes.

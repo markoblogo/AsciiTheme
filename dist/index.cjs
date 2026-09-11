@@ -587,7 +587,7 @@ function persistState(style) {
   const current = readState(config.storageKey);
   writeState(config.storageKey, {
     ...current,
-    style: config.base ? style : void 0,
+    style,
     theme: currentTheme,
     mode: config.managedMode && isBinaryTheme(currentTheme) ? currentTheme : void 0
   });
@@ -650,6 +650,10 @@ function createToggleButton(type, className) {
   return button;
 }
 function injectTogglesIfNeeded() {
+  injectedContainer?.remove();
+  injectedContainer = null;
+  themeToggleButton = null;
+  styleToggleButton = null;
   const mountSelector = config.mountSelector;
   const shouldInject = Boolean(mountSelector) && (config.addThemeToggle || config.addStyleToggle);
   if (!shouldInject || !mountSelector) {
@@ -659,7 +663,6 @@ function injectTogglesIfNeeded() {
   if (!mount) {
     return;
   }
-  injectedContainer?.remove();
   const group = document.createElement("div");
   group.className = "ascii-theme-toggle-group";
   group.setAttribute("data-ascii-controls", "1");
@@ -794,7 +797,7 @@ function initAsciiTheme(options = {}) {
   const root = getRoot();
   root.setAttribute("data-ascii-transitions", config.transitions ? "on" : "off");
   const saved = readState(config.storageKey);
-  const initialStyle = config.base ? "ascii" : normalizeStyle(config.defaultStyle);
+  const initialStyle = config.base ? "ascii" : normalizeStyle(saved.style ?? config.defaultStyle);
   const initialTheme = resolveInitialTheme(saved.theme, saved.mode);
   applyTheme(initialTheme, false);
   if (!config.managedMode) {
